@@ -1,0 +1,1 @@
+[2026-10-16 10:09:00] local.ERROR: Berita live fetch error: cURL error 6: Could not resolve host: bekasikota.go.id (see https://curl.se/libcurl/c/libcurl-errors.html) for https://bekasikota.go.id/api/post/all?X-Api-Key=4D3B67CD28E7FFE471606A1B4F3330DE&limit=10  

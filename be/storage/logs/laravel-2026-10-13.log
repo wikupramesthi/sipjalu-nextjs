@@ -1,0 +1,1 @@
+[2026-10-13 03:51:34] local.ERROR: Berita live fetch error: cURL error 28: Connection timed out after 13965795 milliseconds (see https://curl.se/libcurl/c/libcurl-errors.html) for https://bekasikota.go.id/api/post/all?X-Api-Key=4D3B67CD28E7FFE471606A1B4F3330DE&limit=10  

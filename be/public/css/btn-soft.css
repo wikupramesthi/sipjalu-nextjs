@@ -1,0 +1,319 @@
+/* ============================================================
+ * Soft Buttons — global override untuk semua halaman backend.
+ * Tone disamakan persis dengan tombol Harian/Bulanan dashboard:
+ *   merah = #fee2e2 / #b91c1c (red-100/red-800)
+ *   hijau = #dcfce7 / #15803d (green-100/green-800)
+ *   biru  = #dbeafe / #1e40af (blue-100/blue-800)
+ * Selector diawali #app agar menang melawan rule lama
+ * (#main-content .btn-*, .modal .btn-* yang pakai !important).
+ * Tombol custom satu-class (mis. tombol login gradien di
+ * halaman auth) TIDAK ikut ketimpa.
+ * File ini dimuat SETELAH css framework.
+ * ============================================================ */
+
+/* ---------- PRIMARY (biru soft ala Bulanan) ---------- */
+#app .btn.btn-primary {
+    background-color: #60a5fa !important; background-image: none !important;
+    border-color: #60a5fa !important; color: #fff !important;
+}
+#app .btn.btn-primary:hover, #app .btn.btn-primary:focus {
+    background-color: #3b82f6 !important; background-image: none !important;
+    border-color: #3b82f6 !important; color: #fff !important;
+}
+#app .btn.btn-primary:focus {
+    box-shadow: 0 0 0 0.25rem rgba(96, 165, 250, 0.35);
+}
+#app .btn.btn-primary:active, #app .btn.btn-primary.active, #app .show > .btn.btn-primary.dropdown-toggle {
+    background-color: #2563eb !important; background-image: none !important;
+    border-color: #2563eb !important; color: #fff !important;
+}
+#app .btn.btn-primary:disabled, #app .btn.btn-primary.disabled {
+    background-color: #93c5fd !important; background-image: none !important;
+    border-color: #93c5fd !important; color: #fff !important;
+}
+
+/* ---------- SECONDARY (abu soft) ---------- */
+#app .btn.btn-secondary {
+    background-color: #e9ecef !important; background-image: none !important;
+    border-color: #d6dce2 !important; color: #495057 !important;
+}
+#app .btn.btn-secondary:hover, #app .btn.btn-secondary:focus {
+    background-color: #dde3e9 !important; background-image: none !important;
+    border-color: #c9d2d9 !important; color: #343a40 !important;
+}
+#app .btn.btn-secondary:focus {
+    box-shadow: 0 0 0 0.25rem rgba(173, 181, 189, 0.25);
+}
+#app .btn.btn-secondary:active, #app .btn.btn-secondary.active, #app .show > .btn.btn-secondary.dropdown-toggle {
+    background-color: #d6dce2 !important; background-image: none !important;
+    border-color: #c2cad1 !important; color: #343a40 !important;
+}
+#app .btn.btn-secondary:disabled, #app .btn.btn-secondary.disabled {
+    background-color: #e9ecef !important; background-image: none !important;
+    border-color: #d6dce2 !important; color: #495057 !important;
+}
+
+/* ---------- SUCCESS (hijau soft ala Bulanan) ---------- */
+#app .btn.btn-success {
+    background-color: #dcfce7 !important; background-image: none !important;
+    border-color: #bbf7d0 !important; color: #15803d !important;
+}
+#app .btn.btn-success:hover, #app .btn.btn-success:focus {
+    background-color: #bbf7d0 !important; background-image: none !important;
+    border-color: #86efac !important; color: #166534 !important;
+}
+#app .btn.btn-success:focus {
+    box-shadow: 0 0 0 0.25rem rgba(34, 197, 94, 0.25);
+}
+#app .btn.btn-success:active, #app .btn.btn-success.active, #app .show > .btn.btn-success.dropdown-toggle {
+    background-color: #22c55e !important; background-image: none !important;
+    border-color: #22c55e !important; color: #fff !important;
+}
+#app .btn.btn-success:disabled, #app .btn.btn-success.disabled {
+    background-color: #dcfce7 !important; background-image: none !important;
+    border-color: #bbf7d0 !important; color: #15803d !important;
+}
+
+/* ---------- DANGER (merah soft ala Harian) ---------- */
+#app .btn.btn-danger {
+    background-color: #f87171 !important; background-image: none !important;
+    border-color: #f87171 !important; color: #fff !important;
+}
+#app .btn.btn-danger:hover, #app .btn.btn-danger:focus {
+    background-color: #ef4444 !important; background-image: none !important;
+    border-color: #ef4444 !important; color: #fff !important;
+}
+#app .btn.btn-danger:focus {
+    box-shadow: 0 0 0 0.25rem rgba(248, 113, 113, 0.35);
+}
+#app .btn.btn-danger:active, #app .btn.btn-danger.active, #app .show > .btn.btn-danger.dropdown-toggle {
+    background-color: #dc2626 !important; background-image: none !important;
+    border-color: #dc2626 !important; color: #fff !important;
+}
+#app .btn.btn-danger:disabled, #app .btn.btn-danger.disabled {
+    background-color: #fca5a5 !important; background-image: none !important;
+    border-color: #fca5a5 !important; color: #fff !important;
+}
+
+/* ---------- WARNING (kuning soft) ---------- */
+#app .btn.btn-warning {
+    background-color: #fff3bf !important; background-image: none !important;
+    border-color: #ffe066 !important; color: #7c6500 !important;
+}
+#app .btn.btn-warning:hover, #app .btn.btn-warning:focus {
+    background-color: #ffec99 !important; background-image: none !important;
+    border-color: #ffd43b !important; color: #6b5600 !important;
+}
+#app .btn.btn-warning:focus {
+    box-shadow: 0 0 0 0.25rem rgba(250, 176, 5, 0.25);
+}
+#app .btn.btn-warning:active, #app .btn.btn-warning.active, #app .show > .btn.btn-warning.dropdown-toggle {
+    background-color: #ffe066 !important; background-image: none !important;
+    border-color: #ffd43b !important; color: #6b5600 !important;
+}
+#app .btn.btn-warning:disabled, #app .btn.btn-warning.disabled {
+    background-color: #fff3bf !important; background-image: none !important;
+    border-color: #ffe066 !important; color: #7c6500 !important;
+}
+
+/* ---------- INFO (cyan soft) ---------- */
+#app .btn.btn-info {
+    background-color: #c5f6fa !important; background-image: none !important;
+    border-color: #99e9f2 !important; color: #0b7285 !important;
+}
+#app .btn.btn-info:hover, #app .btn.btn-info:focus {
+    background-color: #a5ecf5 !important; background-image: none !important;
+    border-color: #66d9e8 !important; color: #095c6b !important;
+}
+#app .btn.btn-info:focus {
+    box-shadow: 0 0 0 0.25rem rgba(34, 184, 207, 0.25);
+}
+#app .btn.btn-info:active, #app .btn.btn-info.active, #app .show > .btn.btn-info.dropdown-toggle {
+    background-color: #99e9f2 !important; background-image: none !important;
+    border-color: #66d9e8 !important; color: #095c6b !important;
+}
+#app .btn.btn-info:disabled, #app .btn.btn-info.disabled {
+    background-color: #c5f6fa !important; background-image: none !important;
+    border-color: #99e9f2 !important; color: #0b7285 !important;
+}
+
+/* ---------- LIGHT (putih-abu soft) ---------- */
+#app .btn.btn-light {
+    background-color: #f1f3f5 !important; background-image: none !important;
+    border-color: #e1e5ea !important; color: #495057 !important;
+}
+#app .btn.btn-light:hover, #app .btn.btn-light:focus {
+    background-color: #e4e8ed !important; background-image: none !important;
+    border-color: #d3d9df !important; color: #343a40 !important;
+}
+#app .btn.btn-light:focus {
+    box-shadow: 0 0 0 0.25rem rgba(173, 181, 189, 0.25);
+}
+#app .btn.btn-light:active, #app .btn.btn-light.active, #app .show > .btn.btn-light.dropdown-toggle {
+    background-color: #e1e5ea !important; background-image: none !important;
+    border-color: #c9d2d9 !important; color: #343a40 !important;
+}
+#app .btn.btn-light:disabled, #app .btn.btn-light.disabled {
+    background-color: #f1f3f5 !important; background-image: none !important;
+    border-color: #e1e5ea !important; color: #495057 !important;
+}
+
+/* ---------- DARK (slate soft, tetap terbaca) ---------- */
+#app .btn.btn-dark {
+    background-color: #dee2e6 !important; background-image: none !important;
+    border-color: #ced4da !important; color: #343a40 !important;
+}
+#app .btn.btn-dark:hover, #app .btn.btn-dark:focus {
+    background-color: #ced4da !important; background-image: none !important;
+    border-color: #adb5bd !important; color: #212529 !important;
+}
+#app .btn.btn-dark:focus {
+    box-shadow: 0 0 0 0.25rem rgba(73, 80, 87, 0.25);
+}
+#app .btn.btn-dark:active, #app .btn.btn-dark.active, #app .show > .btn.btn-dark.dropdown-toggle {
+    background-color: #ced4da !important; background-image: none !important;
+    border-color: #adb5bd !important; color: #212529 !important;
+}
+#app .btn.btn-dark:disabled, #app .btn.btn-dark.disabled {
+    background-color: #dee2e6 !important; background-image: none !important;
+    border-color: #ced4da !important; color: #343a40 !important;
+}
+
+/* ---------- OUTLINE varian (tint soft + teks warna) ---------- */
+#app .btn.btn-outline-primary {
+    background-color: #dbeafe !important; background-image: none !important;
+    border-color: #93c5fd !important; color: #1e40af !important;
+}
+#app .btn.btn-outline-primary:hover, #app .btn.btn-outline-primary:focus,
+#app .btn.btn-outline-primary:active, #app .btn.btn-outline-primary.active,
+#app .show > .btn.btn-outline-primary.dropdown-toggle {
+    background-color: #bfdbfe !important; background-image: none !important;
+    border-color: #60a5fa !important; color: #1e3a8a !important;
+}
+#app .btn.btn-outline-secondary {
+    background-color: #f1f3f5 !important; background-image: none !important;
+    border-color: #adb5bd !important; color: #495057 !important;
+}
+#app .btn.btn-outline-secondary:hover, #app .btn.btn-outline-secondary:focus,
+#app .btn.btn-outline-secondary:active, #app .btn.btn-outline-secondary.active,
+#app .show > .btn.btn-outline-secondary.dropdown-toggle {
+    background-color: #e9ecef !important; background-image: none !important;
+    border-color: #868e96 !important; color: #343a40 !important;
+}
+#app .btn.btn-outline-success {
+    background-color: #dcfce7 !important; background-image: none !important;
+    border-color: #86efac !important; color: #15803d !important;
+}
+#app .btn.btn-outline-success:hover, #app .btn.btn-outline-success:focus,
+#app .btn.btn-outline-success:active, #app .btn.btn-outline-success.active,
+#app .show > .btn.btn-outline-success.dropdown-toggle {
+    background-color: #bbf7d0 !important; background-image: none !important;
+    border-color: #22c55e !important; color: #166534 !important;
+}
+#app .btn.btn-outline-danger {
+    background-color: #fee2e2 !important; background-image: none !important;
+    border-color: #fca5a5 !important; color: #b91c1c !important;
+}
+#app .btn.btn-outline-danger:hover, #app .btn.btn-outline-danger:focus,
+#app .btn.btn-outline-danger:active, #app .btn.btn-outline-danger.active,
+#app .show > .btn.btn-outline-danger.dropdown-toggle {
+    background-color: #fecaca !important; background-image: none !important;
+    border-color: #f87171 !important; color: #991b1b !important;
+}
+#app .btn.btn-outline-warning {
+    background-color: #fff9db !important; background-image: none !important;
+    border-color: #ffd43b !important; color: #7c6500 !important;
+}
+#app .btn.btn-outline-warning:hover, #app .btn.btn-outline-warning:focus,
+#app .btn.btn-outline-warning:active, #app .btn.btn-outline-warning.active,
+#app .show > .btn.btn-outline-warning.dropdown-toggle {
+    background-color: #fff3bf !important; background-image: none !important;
+    border-color: #fab005 !important; color: #6b5600 !important;
+}
+#app .btn.btn-outline-info {
+    background-color: #e3fafc !important; background-image: none !important;
+    border-color: #66d9e8 !important; color: #0b7285 !important;
+}
+#app .btn.btn-outline-info:hover, #app .btn.btn-outline-info:focus,
+#app .btn.btn-outline-info:active, #app .btn.btn-outline-info.active,
+#app .show > .btn.btn-outline-info.dropdown-toggle {
+    background-color: #c5f6fa !important; background-image: none !important;
+    border-color: #22b8cf !important; color: #095c6b !important;
+}
+#app .btn.btn-outline-light {
+    background-color: #f8f9fa !important; background-image: none !important;
+    border-color: #dee2e6 !important; color: #495057 !important;
+}
+#app .btn.btn-outline-light:hover, #app .btn.btn-outline-light:focus,
+#app .btn.btn-outline-light:active, #app .btn.btn-outline-light.active,
+#app .show > .btn.btn-outline-light.dropdown-toggle {
+    background-color: #e9ecef !important; background-image: none !important;
+    border-color: #adb5bd !important; color: #343a40 !important;
+}
+#app .btn.btn-outline-dark {
+    background-color: #f1f3f5 !important; background-image: none !important;
+    border-color: #868e96 !important; color: #343a40 !important;
+}
+#app .btn.btn-outline-dark:hover, #app .btn.btn-outline-dark:focus,
+#app .btn.btn-outline-dark:active, #app .btn.btn-outline-dark.active,
+#app .show > .btn.btn-outline-dark.dropdown-toggle {
+    background-color: #dee2e6 !important; background-image: none !important;
+    border-color: #495057 !important; color: #212529 !important;
+}
+
+/* ---------- SweetAlert2 confirm/cancel (popup hapus, dll) ---------- */
+#app .swal2-styled.swal2-confirm {
+    background-color: #f87171 !important; background-image: none !important;
+    border: 1px solid #f87171 !important; color: #fff !important;
+    box-shadow: none !important; font-weight: 600 !important;
+}
+#app .swal2-styled.swal2-confirm:hover {
+    background-color: #ef4444 !important; background-image: none !important;
+    color: #fff !important;
+}
+#app .swal2-styled.swal2-cancel, #app .swal2-styled.swal2-deny {
+    background-color: #e9ecef !important; background-image: none !important;
+    border: 1px solid #d6dce2 !important; color: #495057 !important;
+    box-shadow: none !important; font-weight: 600 !important;
+}
+#app .swal2-styled.swal2-cancel:hover, #app .swal2-styled.swal2-deny:hover {
+    background-color: #dde3e9 !important; background-image: none !important;
+    color: #343a40 !important;
+}
+
+/* ============================================================
+ * Blade x-button components (primary/danger/secondary).
+ * Plain CSS tanpa ketergantungan framework, jadi tampil
+ * soft di layout mana pun (app/auth). Tone sama dengan
+ * tombol Harian/Bulanan dashboard.
+ * ============================================================ */
+.btn-soft {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 8px 16px; border-radius: 10px; border: 1px solid transparent;
+    font-weight: 600; font-size: 0.82rem; letter-spacing: 0.2px;
+    cursor: pointer; text-decoration: none; transition: all 0.15s ease;
+}
+.btn-soft:focus {
+    outline: none; box-shadow: 0 0 0 0.25rem rgba(96, 165, 250, 0.18);
+}
+.btn-soft:disabled {
+    opacity: 0.65; cursor: not-allowed;
+}
+.btn-soft-primary {
+    background-color: #60a5fa; border-color: #60a5fa; color: #fff;
+}
+.btn-soft-primary:hover {
+    background-color: #3b82f6; border-color: #3b82f6; color: #fff;
+}
+.btn-soft-danger {
+    background-color: #f87171; border-color: #f87171; color: #fff;
+}
+.btn-soft-danger:hover {
+    background-color: #ef4444; border-color: #ef4444; color: #fff;
+}
+.btn-soft-secondary {
+    background-color: #e9ecef; border-color: #d6dce2; color: #495057;
+}
+.btn-soft-secondary:hover {
+    background-color: #dde3e9; border-color: #c9d2d9; color: #343a40;
+}
