@@ -1,0 +1,5 @@
+/* Tipografi mengikuti praktik Google (web.sj-dev): font sistem yang legibel,
+   tanpa permintaan eksternal ke Google Fonts sehingga LCP/Core Web Vitals
+   tetap cepat (faktor SEO), ramah CSP ('self' saja), dan glif Indonesia lengkap.
+   Skala ukuran mengikuti anjuran aksesibilitas: teks isi minimal 16px. */
+:root{--font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";--font-display:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}

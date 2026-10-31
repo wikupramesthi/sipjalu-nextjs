@@ -1,0 +1,28 @@
+/*
+ * Security headers for static hosting (Netlify / Cloudflare Pages style).
+ * On nginx or other servers, mirror these directives — see docs/SECURITY.md.
+ * NOTE: a static export cannot attach HTTP headers itself; the edge/host
+ * layer is responsible. Keep this file in sync with docs/SECURITY.md.
+ *
+ * This CSP targets the Vite artifact (dist/) which ships no inline scripts and
+ * no external web fonts (system font stack only). If you deploy the Next.js
+ * static export instead, add 'unsafe-inline' to script-src or (better) move
+ * the export behind the Node/edge server shown in docs/SECURITY.md where
+ * per-request nonces can be applied.
+ */
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'none'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; script-src-elem 'self'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin
+  X-DNS-Prefetch-Control: off
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/index.html
+  Cache-Control: no-cache
