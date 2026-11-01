@@ -10,11 +10,17 @@
         box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
     }
 
-    .authentication-wrapper.auth-2026 .login-lang-switch-wrap--form {
+    .authentication-wrapper.auth-2026 .login-top-controls {
         position: absolute;
         top: 20px;
-        right: 76px;
+        right: 22px;
         z-index: 4;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .authentication-wrapper.auth-2026 .login-lang-switch-wrap--form {
         display: flex;
         align-items: center;
     }
@@ -245,6 +251,11 @@
             transition: opacity 1.2s ease;
         }
 
+        html[data-login-theme-transition="to-light"] .authentication-wrapper.auth-2026 .city-night-sky,
+        html[data-login-theme-transition="to-light"] .authentication-wrapper.auth-2026 .city-night-wash {
+            transition-delay: .65s;
+        }
+
         .authentication-wrapper.auth-2026 .city-moon-rise {
             opacity: 0;
             transform: translate3d(0, 240px, 0);
@@ -302,12 +313,123 @@
             animation-delay: -3.5s;
         }
 
+        .authentication-wrapper.auth-2026 .city-street-lights {
+            pointer-events: none;
+        }
+
+        .authentication-wrapper.auth-2026 .city-street-lamp-pole {
+            fill: none;
+            stroke: #42718c;
+            stroke-linecap: round;
+            stroke-width: 4;
+        }
+
+        .authentication-wrapper.auth-2026 .city-street-lamp-fixture {
+            fill: #426d83;
+        }
+
+        .authentication-wrapper.auth-2026 .city-street-lamp-glow,
+        .authentication-wrapper.auth-2026 .city-street-lamp-beam {
+            opacity: 0;
+            transition: opacity .65s ease;
+        }
+
+        .authentication-wrapper.auth-2026 .city-street-lamp-glow {
+            fill: #ffe7a0;
+            filter: url(#cityLampGlow);
+        }
+
+        .authentication-wrapper.auth-2026 .city-street-lamp-beam {
+            fill: url(#cityLampGlow);
+        }
+
+        .authentication-wrapper.auth-2026 .city-traffic {
+            pointer-events: none;
+        }
+
+        .authentication-wrapper.auth-2026 .city-car {
+            transform-box: view-box;
+            animation: cityDriveRight 22s linear infinite;
+            will-change: transform;
+        }
+
+        .authentication-wrapper.auth-2026 .city-car--forward {
+            transform: translateX(120px);
+        }
+
+        .authentication-wrapper.auth-2026 .city-car--reverse {
+            animation-name: cityDriveLeft;
+            animation-duration: 26s;
+            animation-delay: -8s;
+            transform: translateX(700px);
+        }
+
+        .authentication-wrapper.auth-2026 .city-car--late {
+            animation-duration: 28s;
+            animation-delay: -13s;
+            transform: translateX(980px);
+        }
+
+        .authentication-wrapper.auth-2026 .city-car-body {
+            fill: #1684a6;
+        }
+
+        .authentication-wrapper.auth-2026 .city-car--reverse .city-car-body {
+            fill: #e49a39;
+        }
+
+        .authentication-wrapper.auth-2026 .city-car--late .city-car-body {
+            fill: #4b9b70;
+        }
+
+        .authentication-wrapper.auth-2026 .city-car-window {
+            fill: #d9f3ff;
+            opacity: .9;
+        }
+
+        .authentication-wrapper.auth-2026 .city-car-light {
+            fill: #fff2bd;
+        }
+
+        .authentication-wrapper.auth-2026 .city-car-wheel {
+            fill: #26384b;
+            stroke: #d4e5ed;
+            stroke-width: 1.5;
+        }
+
         @keyframes cityscapeFloat {
             from {
                 transform: translate3d(0, 0, 0);
             }
             to {
                 transform: translate3d(0, -4px, 0);
+            }
+        }
+
+        @keyframes cityDriveRight {
+            from {
+                transform: translateX(-100px);
+            }
+            to {
+                transform: translateX(1300px);
+            }
+        }
+
+        @keyframes cityDriveLeft {
+            from {
+                transform: translateX(1300px);
+            }
+            to {
+                transform: translateX(-160px);
+            }
+        }
+
+        @keyframes streetLampFlicker {
+            from {
+                opacity: .82;
+            }
+            to {
+                opacity: 1;
             }
         }
 
@@ -319,6 +441,21 @@
             to {
                 opacity: 1;
                 transform: translate3d(0, 0, 0);
+            }
+        }
+
+        @keyframes moonSet {
+            from {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+            75% {
+                opacity: 1;
+                transform: translate3d(0, 470px, 0);
+            }
+            to {
+                opacity: 0;
+                transform: translate3d(0, 620px, 0);
             }
         }
 
@@ -420,11 +557,8 @@
     }
 
     .login-theme-toggle {
-        position: absolute;
-        top: 20px;
-        right: 22px;
-        z-index: 4;
         display: inline-flex;
+        flex: 0 0 44px;
         width: 44px;
         height: 44px;
         align-items: center;
@@ -512,6 +646,28 @@
         line-height: 1.2;
     }
 
+    .authentication-wrapper.auth-2026 .btn-primary {
+        background: linear-gradient(105deg, #168acb 0%, #19a6df 58%, #35b8e9 100%);
+        box-shadow:
+            0 3px 12px rgba(25, 166, 223, .25),
+            inset 0 1px 0 rgba(255, 255, 255, .2);
+    }
+
+    .authentication-wrapper.auth-2026 .btn-primary:hover {
+        box-shadow:
+            0 8px 24px rgba(25, 166, 223, .35),
+            inset 0 1px 0 rgba(255, 255, 255, .25);
+    }
+
+    .authentication-wrapper.auth-2026 .btn-primary:active {
+        box-shadow: 0 2px 8px rgba(25, 166, 223, .3);
+    }
+
+    .authentication-wrapper.auth-2026 .btn-primary:focus-visible {
+        outline: 3px solid rgba(25, 166, 223, .45);
+        outline-offset: 3px;
+    }
+
     .authentication-wrapper.auth-2026 .form-group {
         margin-bottom: .82rem;
     }
@@ -529,11 +685,15 @@
     }
 
     .authentication-wrapper.auth-2026 .auth-footer {
-        margin-top: 1.15rem;
+        margin-top: 1rem;
         color: #718397;
-        font-size: .72rem;
+        font-size: .75rem;
         line-height: 1.5;
         text-align: center;
+    }
+
+    .authentication-wrapper.auth-2026 .auth-footer small {
+        font-size: .75rem;
     }
 
     .login-form-alert {
@@ -566,13 +726,13 @@
         gap: .5rem;
         margin-bottom: .45rem;
         color: #344c63;
-        font-size: .78rem;
+        font-size: .8rem;
         font-weight: 650;
     }
 
     .login-captcha-refresh-hint {
         color: #7b8b9b;
-        font-size: .68rem;
+        font-size: .72rem;
         font-weight: 400;
         text-align: right;
     }
@@ -580,39 +740,69 @@
     .login-captcha-image-row {
         display: flex;
         align-items: center;
-        gap: .6rem;
-        padding: .5rem .6rem;
+        gap: .7rem;
+        min-height: 58px;
+        padding: .5rem .65rem;
         border: 1px solid #dfe7ed;
         border-radius: 10px;
         background: #f8fafc;
     }
 
     .login-captcha-image {
-        flex: 0 1 auto;
+        flex: 1 1 220px;
+        width: 220px;
         height: 44px;
         min-width: 0;
-        max-width: 100%;
+        max-width: min(100%, 220px);
         border: 1px solid #dee2e6;
         border-radius: 6px;
+        object-fit: cover;
         cursor: pointer;
     }
 
     .login-captcha-refresh {
         flex: 0 0 auto;
-        white-space: nowrap;
+        display: inline-flex;
+        min-height: 40px;
+        align-items: center;
+        justify-content: center;
+        gap: .4rem;
+        padding: .45rem .75rem;
+        border: 1px solid #bfd8e6;
+        border-radius: 8px;
+        background: #fff;
+        color: #315d77;
+        font-family: inherit;
         font-size: .76rem;
+        font-weight: 650;
+        line-height: 1;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: border-color .18s ease, background-color .18s ease, color .18s ease, box-shadow .18s ease;
+    }
+
+    .login-captcha-refresh:hover {
+        border-color: #77b8d7;
+        background: #edf8fd;
+        color: #1c668f;
+        box-shadow: 0 2px 8px rgba(27, 105, 145, .1);
+    }
+
+    .login-captcha-refresh:focus-visible {
+        outline: 2px solid #1386bd;
+        outline-offset: 2px;
     }
 
     .login-captcha-input {
-        margin-top: .6rem;
+        margin-top: .5rem;
     }
 
     .login-captcha-hint {
         display: block;
-        margin-top: .4rem;
+        margin-top: .45rem;
         color: #778798;
-        font-size: .7rem;
-        line-height: 1.45;
+        font-size: .75rem;
+        line-height: 1.5;
     }
 
     html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .auth-brand-panel {
@@ -639,8 +829,51 @@
         transition-delay: .35s;
     }
 
+    html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .city-street-lamp-pole {
+        stroke: #9ab6c8;
+    }
+
+    html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .city-street-lamp-fixture {
+        fill: #bfd2dc;
+    }
+
+    html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .city-street-lamp-glow {
+        opacity: .95;
+        animation: streetLampFlicker 5s ease-in-out infinite alternate;
+    }
+
+    html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .city-street-lamp-beam {
+        opacity: .82;
+    }
+
+    html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .city-car--forward .city-car-body {
+        fill: #57b5d1;
+    }
+
+    html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .city-car--reverse .city-car-body {
+        fill: #f2bd66;
+    }
+
+    html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .city-car--late .city-car-body {
+        fill: #8acb9c;
+    }
+
+    html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .city-car-window {
+        fill: #d6f4ff;
+    }
+
+    html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .city-car-wheel {
+        fill: #152534;
+        stroke: #9ab6c8;
+    }
+
     html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .city-moon-rise,
     html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .city-moon {
+        animation-play-state: running;
+    }
+
+    html[data-login-theme-transition="to-light"] .authentication-wrapper.auth-2026 .city-moon-rise {
+        animation: moonSet 1.8s cubic-bezier(.4, 0, .7, .2) forwards;
         animation-play-state: running;
     }
 
@@ -686,6 +919,13 @@
         color: #c1d3e2;
     }
 
+    html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .btn-primary {
+        background: linear-gradient(105deg, #0879b8 0%, #119bd2 58%, #25afe3 100%);
+        box-shadow:
+            0 3px 14px rgba(17, 155, 210, .28),
+            inset 0 1px 0 rgba(255, 255, 255, .18);
+    }
+
     html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .login-form-alert {
         border-color: rgba(248, 113, 113, .32);
         background: rgba(127, 29, 29, .25);
@@ -704,6 +944,18 @@
     html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .login-captcha-image-row {
         border-color: rgba(202, 221, 236, .18);
         background: #192b3c;
+    }
+
+    html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .login-captcha-refresh {
+        border-color: rgba(160, 197, 218, .35);
+        background: #22394b;
+        color: #d3eaf7;
+    }
+
+    html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .login-captcha-refresh:hover {
+        border-color: #6aa9c9;
+        background: #29485f;
+        color: #f1f8fc;
     }
 
     html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .login-theme-toggle {
@@ -741,7 +993,8 @@
     }
 
     html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .form-floating label,
-    html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .form-check label {
+    html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .form-check label,
+    html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .form-check-label {
         color: #b7c8d7;
     }
 
@@ -753,6 +1006,27 @@
     @media (max-width: 991.98px) {
         .authentication-wrapper.auth-2026 .auth-form-panel {
             background: linear-gradient(160deg, #eaf5fb 0%, #f7fbfd 58%, #e7f2f8 100%);
+        }
+
+        .authentication-wrapper.auth-login-fixed .auth-brand-panel {
+            position: fixed;
+            inset: 0 0 auto;
+            z-index: 10;
+            display: block;
+            width: 100%;
+            max-width: none;
+            height: 0;
+            min-height: 0;
+            flex: none;
+            overflow: visible;
+            padding: 0;
+            background: none;
+            box-shadow: none;
+            pointer-events: none;
+        }
+
+        .authentication-wrapper.auth-login-fixed .auth-brand-panel > :not(.login-top-controls) {
+            display: none;
         }
 
         .authentication-wrapper.auth-login-fixed .auth-form-panel {
@@ -772,14 +1046,10 @@
             padding: 0;
         }
 
-        .authentication-wrapper.auth-2026 .login-lang-switch-wrap--form {
-            top: 16px;
-            right: 68px;
-        }
-
-        .authentication-wrapper.auth-2026 .login-theme-toggle {
+        .authentication-wrapper.auth-2026 .login-top-controls {
             top: 16px;
             right: 16px;
+            pointer-events: auto;
         }
     }
 
@@ -996,6 +1266,27 @@
             will-change: auto;
         }
 
+        .authentication-wrapper.auth-2026 .city-car {
+            animation: none;
+            will-change: auto;
+        }
+
+        .authentication-wrapper.auth-2026 .city-street-lamp-glow {
+            animation: none;
+        }
+
+        .authentication-wrapper.auth-2026 .city-car--forward {
+            transform: translateX(120px);
+        }
+
+        .authentication-wrapper.auth-2026 .city-car--reverse {
+            transform: translateX(700px);
+        }
+
+        .authentication-wrapper.auth-2026 .city-car--late {
+            transform: translateX(980px);
+        }
+
         .authentication-wrapper.auth-2026 .city-moon-rise,
         .authentication-wrapper.auth-2026 .city-moon,
         .authentication-wrapper.auth-2026 .city-stars {
@@ -1003,8 +1294,19 @@
         }
 
         .authentication-wrapper.auth-2026 .city-moon-rise {
+            opacity: 0;
+            transform: translate3d(0, 240px, 0);
+        }
+
+        html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .city-moon-rise {
             opacity: 1;
             transform: none;
+        }
+
+        html[data-login-theme-transition="to-light"] .authentication-wrapper.auth-2026 .city-moon-rise {
+            animation: none;
+            opacity: 0;
+            transform: translate3d(0, 240px, 0);
         }
 
         html[data-login-theme="dark"] .authentication-wrapper.auth-2026 .city-night-sky,

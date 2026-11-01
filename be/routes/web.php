@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\HomeController;
 use Mews\Captcha\CaptchaController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\ManagementAccess\RoleController;
@@ -41,7 +40,7 @@ use App\Http\Controllers\WallboardController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\MinifyHtml;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::redirect('/', '/auth/login')->name('home');
 
 // Sitemap dinamis SEO rapih (discoverable via /sitemap.xml & robots.txt)
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');

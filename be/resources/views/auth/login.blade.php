@@ -11,6 +11,17 @@
 <div class="authentication-inner">
     <!-- Brand Panel -->
     <div class="auth-brand-panel">
+        <div class="login-top-controls">
+            <div class="login-lang-switch-wrap--form">
+                <div class="login-lang-switch" role="group" aria-label="{{ __('login.lang_switch') }}">
+                    <a href="{{ route('lang.switch', 'id') }}" class="{{ app()->getLocale() === 'id' ? 'active' : '' }}" lang="id" title="Bahasa Indonesia">{{ __('login.lang_id') }}</a>
+                    <a href="{{ route('lang.switch', 'en') }}" class="{{ app()->getLocale() === 'en' ? 'active' : '' }}" lang="en" title="English">{{ __('login.lang_en') }}</a>
+                </div>
+            </div>
+            <button type="button" class="login-theme-toggle" id="loginThemeToggle" aria-label="{{ __('login.theme_toggle') }}" aria-pressed="false" title="{{ __('login.theme_toggle') }}">
+                <i class="ti ti-moon-stars" aria-hidden="true"></i>
+            </button>
+        </div>
         <svg class="auth-brand-cityscape" id="loginCityscape" viewBox="0 0 1200 660" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
             <defs>
                 <linearGradient id="cityGlass" x1="0" y1="0" x2="1" y2="1">
@@ -20,6 +31,10 @@
                 <radialGradient id="cityMoonGlow">
                     <stop stop-color="#f8e9b5" stop-opacity=".3" />
                     <stop offset="1" stop-color="#f8e9b5" stop-opacity="0" />
+                </radialGradient>
+                <radialGradient id="cityLampGlow">
+                    <stop stop-color="#ffe7a0" stop-opacity=".34" />
+                    <stop offset="1" stop-color="#ffe7a0" stop-opacity="0" />
                 </radialGradient>
                 <linearGradient id="cityNightTint" x1="0" y1="0" x2="0" y2="1">
                     <stop stop-color="#182747" />
@@ -79,6 +94,63 @@
                     <path d="M151 660c0-13 10-23 23-23s23 10 23 23zm809 0c0-14 11-25 25-25s25 11 25 25zm-755-25 7-15h-5l8-13 8 13h-5l7 15h-8v25h-4v-25zm811-17 8-17h-5l9-14 9 14h-5l8 17h-9v34h-6v-34z" />
                 </g>
             </g>
+            <g class="city-street-lights" aria-hidden="true">
+                <g class="city-street-lamp" transform="translate(95 0)">
+                    <path class="city-street-lamp-pole" d="M0 650V574q0-9 9-9h19" />
+                    <path class="city-street-lamp-fixture" d="M24 561h13q4 0 4 4v4H24z" />
+                    <ellipse class="city-street-lamp-glow" cx="30" cy="568" rx="18" ry="15" />
+                    <path class="city-street-lamp-beam" d="m25 569-48 77h105l-48-77z" />
+                </g>
+                <g class="city-street-lamp" transform="translate(420 0)">
+                    <path class="city-street-lamp-pole" d="M0 650V574q0-9 9-9h19" />
+                    <path class="city-street-lamp-fixture" d="M24 561h13q4 0 4 4v4H24z" />
+                    <ellipse class="city-street-lamp-glow" cx="30" cy="568" rx="18" ry="15" />
+                    <path class="city-street-lamp-beam" d="m25 569-48 77h105l-48-77z" />
+                </g>
+                <g class="city-street-lamp" transform="translate(790 0)">
+                    <path class="city-street-lamp-pole" d="M0 650V574q0-9 9-9h19" />
+                    <path class="city-street-lamp-fixture" d="M24 561h13q4 0 4 4v4H24z" />
+                    <ellipse class="city-street-lamp-glow" cx="30" cy="568" rx="18" ry="15" />
+                    <path class="city-street-lamp-beam" d="m25 569-48 77h105l-48-77z" />
+                </g>
+                <g class="city-street-lamp" transform="translate(1110 0)">
+                    <path class="city-street-lamp-pole" d="M0 650V574q0-9 9-9h19" />
+                    <path class="city-street-lamp-fixture" d="M24 561h13q4 0 4 4v4H24z" />
+                    <ellipse class="city-street-lamp-glow" cx="30" cy="568" rx="18" ry="15" />
+                    <path class="city-street-lamp-beam" d="m25 569-48 77h105l-48-77z" />
+                </g>
+            </g>
+            <g class="city-traffic" aria-hidden="true">
+                <g class="city-car-track" transform="translate(0 614)">
+                    <g class="city-car city-car--forward">
+                        <path class="city-car-body" d="M5 18h7l7-9c1-2 3-3 5-3h21c3 0 5 1 7 4l6 8h5c3 0 5 2 5 5v4H4v-4c0-3 0-5 1-5Z" />
+                        <path class="city-car-window" d="m22 9-6 9h15V9zm12 0v9h16l-6-7c-1-1-2-2-4-2z" />
+                        <path class="city-car-light" d="M6 20h5v3H6zm56 0h4v3h-4z" />
+                        <circle class="city-car-wheel" cx="17" cy="27" r="5" />
+                        <circle class="city-car-wheel" cx="51" cy="27" r="5" />
+                    </g>
+                </g>
+                <g class="city-car-track" transform="translate(0 614)">
+                    <g class="city-car city-car--reverse">
+                        <g transform="translate(72 0) scale(-1 1)">
+                            <path class="city-car-body" d="M5 18h7l7-9c1-2 3-3 5-3h21c3 0 5 1 7 4l6 8h5c3 0 5 2 5 5v4H4v-4c0-3 0-5 1-5Z" />
+                            <path class="city-car-window" d="m22 9-6 9h15V9zm12 0v9h16l-6-7c-1-1-2-2-4-2z" />
+                            <path class="city-car-light" d="M6 20h5v3H6zm56 0h4v3h-4z" />
+                            <circle class="city-car-wheel" cx="17" cy="27" r="5" />
+                            <circle class="city-car-wheel" cx="51" cy="27" r="5" />
+                        </g>
+                    </g>
+                </g>
+                <g class="city-car-track" transform="translate(0 614)">
+                    <g class="city-car city-car--late">
+                        <path class="city-car-body" d="M5 18h7l7-9c1-2 3-3 5-3h21c3 0 5 1 7 4l6 8h5c3 0 5 2 5 5v4H4v-4c0-3 0-5 1-5Z" />
+                        <path class="city-car-window" d="m22 9-6 9h15V9zm12 0v9h16l-6-7c-1-1-2-2-4-2z" />
+                        <path class="city-car-light" d="M6 20h5v3H6zm56 0h4v3h-4z" />
+                        <circle class="city-car-wheel" cx="17" cy="27" r="5" />
+                        <circle class="city-car-wheel" cx="51" cy="27" r="5" />
+                    </g>
+                </g>
+            </g>
         </svg>
 
         <div class="auth-brand-content">
@@ -128,15 +200,6 @@
 
     <!-- Form Panel -->
     <div class="auth-form-panel d-flex col-12 col-lg-5 col-xl-4 align-items-center">
-        <div class="login-lang-switch-wrap--form">
-            <div class="login-lang-switch" role="group" aria-label="{{ __('login.lang_switch') }}">
-                <a href="{{ route('lang.switch', 'id') }}" class="{{ app()->getLocale() === 'id' ? 'active' : '' }}" lang="id" title="Bahasa Indonesia">{{ __('login.lang_id') }}</a>
-                <a href="{{ route('lang.switch', 'en') }}" class="{{ app()->getLocale() === 'en' ? 'active' : '' }}" lang="en" title="English">{{ __('login.lang_en') }}</a>
-            </div>
-        </div>
-        <button type="button" class="login-theme-toggle" id="loginThemeToggle" aria-label="{{ __('login.theme_toggle') }}" aria-pressed="false" title="{{ __('login.theme_toggle') }}">
-            <i class="ti ti-moon-stars" aria-hidden="true"></i>
-        </button>
         <span class="auth-form-shape auth-form-shape-1 d-lg-none" aria-hidden="true"></span>
         <span class="auth-form-shape auth-form-shape-2 d-lg-none" aria-hidden="true"></span>
 
@@ -292,6 +355,7 @@
         var themeToggle = document.getElementById('loginThemeToggle');
         var root = document.documentElement;
         var theme = localStorage.getItem('login-theme') === 'dark' ? 'dark' : 'light';
+        var transitionTimeout;
 
         function applyTheme(nextTheme) {
             root.setAttribute('data-login-theme', nextTheme);
@@ -308,6 +372,14 @@
             themeToggle.addEventListener('click', function () {
                 theme = theme === 'dark' ? 'light' : 'dark';
                 localStorage.setItem('login-theme', theme);
+                window.clearTimeout(transitionTimeout);
+                root.removeAttribute('data-login-theme-transition');
+                if (theme === 'light' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    root.setAttribute('data-login-theme-transition', 'to-light');
+                    transitionTimeout = window.setTimeout(function () {
+                        root.removeAttribute('data-login-theme-transition');
+                    }, 1900);
+                }
                 applyTheme(theme);
             });
         }
