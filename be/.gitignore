@@ -3,6 +3,7 @@
 /public/hot
 /storage/*.key
 /storage/*
+/storage/framework/views/
 /vendor
 .env
 .env.backup

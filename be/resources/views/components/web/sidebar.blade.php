@@ -7,6 +7,10 @@
             <a href="{{ route('dashboard.index') }}" class="navbar-brand m-0 d-flex align-items-center">
                 <img id="logo-light" src="{{ asset('img/logo.png') }}" alt="Logo" class="navbar-brand-img">
                 <img id="logo-dark" src="{{ asset('img/logo-white.png') }}" alt="Logo" class="navbar-brand-img d-none">
+                <span class="sidebar-brand-copy">
+                    <strong>Talent Hub</strong>
+                    <small>Panel Administrasi</small>
+                </span>
             </a>
 
             <div class="sidebar-toggler x">
@@ -20,7 +24,7 @@
         <div class="sidebar-menu">
             <ul class="menu navbar-nav">
 
-                <li class="sidebar-title">Main Menu</li>
+                <li class="sidebar-title">Menu Utama</li>
 
                 <li class="sidebar-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
                     <a class="sidebar-link nav-link" href="{{ route('dashboard.index') }}">
@@ -55,8 +59,10 @@
                     <ul class="submenu nav ms-4">
                         @foreach ($menu->items as $item)
                         @can($item->permission_name)
-                        <li class="submenu-item {{ request()->routeIs($item->route) ? 'active' : '' }}">
-                            <a href="{{ route($item->route) }}" class="submenu-link nav-link">
+                        @php($isCurrentPage = request()->routeIs($item->route))
+                        <li class="submenu-item {{ $isCurrentPage ? 'active' : '' }}">
+                            <a href="{{ route($item->route) }}" class="submenu-link nav-link"
+                                @if ($isCurrentPage) aria-current="page" @endif>
                                 <span class="sidenav-mini-icon">{{ strtoupper(mb_substr($item->name, 0, 1)) }}</span>
                                 <span class="sidenav-normal">{{ $item->name }}</span>
                             </a>
@@ -84,7 +90,7 @@
                 @endcan
 
                 @role('user')
-                <li class="sidebar-title">Others</li>
+                <li class="sidebar-title">Menu Lain</li>
                 <li class="sidebar-item has-sub">
                     <a href="#" class="sidebar-link nav-link">
                         <div class="icon icon-shape icon-sm">
@@ -121,49 +127,5 @@
             </ul>
         </div>
 
-        {{-- Sidenav Footer --}}
-        <div class="sidenav-footer">
-            <div class="card card-plain shadow-none border-0 text-center mb-2">
-                <div class="card-body p-3">
-                    <div class="docs-info">
-                        <h6 class="mb-0 fw-bold">Butuh Bantuan?</h6>
-                        <p class="text-xs mb-0 text-muted">Ada pertanyaan atau kendala? Hubungi kami melalui WhatsApp.</p>
-                    </div>
-                </div>
-            </div>
-            <a href="https://wa.me/6285691231100"
-                target="_blank" rel="noopener" class="btn btn-success btn-sm w-100">
-                <i class="bi bi-whatsapp me-1"></i> Chat via WhatsApp
-            </a>
-        </div>
-
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const search = document.getElementById('sidebar-search');
-        if (!search) return;
-
-        search.addEventListener('input', function() {
-            const query = this.value.toLowerCase().trim();
-
-            document.querySelectorAll('.sidebar-menu .menu > .sidebar-item').forEach(function(item) {
-                const text = item.textContent.toLowerCase();
-                const matches = text.includes(query);
-                item.classList.toggle('sb-hidden', !matches);
-
-                const submenu = item.querySelector('.submenu');
-                if (!submenu) return;
-
-                if (matches && query) {
-                    submenu.classList.add('submenu-open');
-                    submenu.classList.remove('submenu-closed');
-                } else if (!query) {
-                    submenu.classList.remove('submenu-open');
-                    submenu.classList.remove('submenu-closed');
-                }
-            });
-        });
-    });
-</script>

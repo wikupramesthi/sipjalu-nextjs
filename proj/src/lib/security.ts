@@ -2,9 +2,9 @@
  * Security helpers.
  *
  * Threat model notes for this static portal:
- * - The demo performs no network requests. `connect-src 'none'` in the CSP
- *   (see `docs/SECURITY.md`) enforces that promise at the browser level, so a
- *   compromised asset cannot exfiltrate data.
+ * - Only the public FAQ endpoint makes a network request. CSP
+ *   `connect-src` (see `docs/SECURITY.md`) restricts the allowed backend
+ *   origin; no credentials or user-entered data are sent.
  * - Outbound links only point at an explicit allow-list of government
  *   domains; everything else falls back to safe, in-app routes.
  * - Text coming from the URL (search terms, NPSN query params) is treated as

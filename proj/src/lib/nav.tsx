@@ -14,6 +14,8 @@ import type { ReactNode } from "react";
 export interface NavState {
   /** Current pathname, e.g. "/berita/pembaruan-2027b". */
   path: string;
+  /** Whether a route change is in progress. */
+  isNavigating: boolean;
   /** Navigate without a full reload when a provider supports it. */
   navigate: (to: string) => void;
 }
@@ -28,17 +30,31 @@ export function NavProvider({ children }: { children: ReactNode }) {
   const [path, setPath] = useState(() =>
     typeof window === "undefined" ? "/" : window.location.pathname || "/",
   );
+  const [isNavigating, setIsNavigating] = useState(false);
 
   useEffect(() => {
-    const sync = () => setPath(window.location.pathname || "/");
+    const sync = () => {
+      const nextPath = window.location.pathname || "/";
+      if (nextPath !== path) {
+        setIsNavigating(true);
+        setPath(nextPath);
+      }
+    };
     window.addEventListener("popstate", sync);
     return () => window.removeEventListener("popstate", sync);
-  }, []);
+  }, [path]);
+
+  useEffect(() => {
+    if (!isNavigating) return;
+    const timer = window.setTimeout(() => setIsNavigating(false), 350);
+    return () => window.clearTimeout(timer);
+  }, [isNavigating, path]);
 
   const navigate = useCallback((to: string) => {
     const next = to.startsWith("/") ? to : `/${to}`;
     const onlyTarget = next.split("?")[0];
     const previous = window.location.pathname;
+    if (previous !== onlyTarget) setIsNavigating(true);
     window.history.pushState({}, "", next);
     if (previous === onlyTarget) {
       // Same route, different query/hash: notify param readers directly.
@@ -49,6 +65,9 @@ export function NavProvider({ children }: { children: ReactNode }) {
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
   }, []);
 
-  const value = useMemo(() => ({ path, navigate }), [path, navigate]);
+  const value = useMemo(
+    () => ({ path, isNavigating, navigate }),
+    [path, isNavigating, navigate],
+  );
   return <NavContext.Provider value={value}>{children}</NavContext.Provider>;
 }

@@ -80,6 +80,7 @@
 .sj-dot:hover{background:#91ab99}
 .sj-dot.sj-active{width:22px;background:#17633f}
 .sj-notice-footer{padding:24px 26px;display:flex;justify-content:flex-end}
+.sj-notice-countdown{display:flex;min-height:42px;align-items:center;color:#567263;font-size:13px;text-align:right}
 .sj-notice-close-btn{min-width:148px;height:42px;display:inline-flex;align-items:center;justify-content:center;gap:9px;background:#17633f;border:0;border-radius:11px;padding:0 18px;font-size:14px;font-weight:650;color:#fff;cursor:pointer;transition:background .2s}
 .sj-notice-close-btn:hover{background:#155936}
 .sj-notice-close-btn:focus-visible,.sj-notice-prev:focus-visible,.sj-notice-next:focus-visible,.sj-dot:focus-visible{outline:3px solid #9de0b0;outline-offset:3px}
@@ -116,7 +117,15 @@
 .sj-bar{transform-box:fill-box;transform-origin:center bottom;animation:barIn .6s ease both;animation-delay:var(--d,0ms)}
 .sj-bar.sj-hover{filter:brightness(.82)}
 .sj-stacked{animation-duration:.5s}
-.sj-chart-tooltip{position:absolute;left:22px;top:12px;background:#16834a;color:#fff;font-size:14px;padding:7px 12px;border-radius:8px;box-shadow:0 8px 20px #0003}
+.sj-chart-tooltip{position:absolute;z-index:3;display:grid;min-width:176px;max-width:min(240px,calc(100vw - 48px));gap:5px;padding:11px 13px;border:1px solid #ffffff40;border-radius:10px;background:#174c34;color:#fff;box-shadow:0 10px 28px #102d2040;pointer-events:none;animation:chartToastIn .12s ease-out}
+.sj-chart-tooltip-date{color:#d4ead9;font-size:11px;font-weight:650;letter-spacing:.2px}
+.sj-chart-tooltip-total{font-size:17px;font-weight:750;line-height:1.2}
+.sj-chart-tooltip-total small{color:#d4ead9;font-size:11px;font-weight:500}
+.sj-chart-tooltip-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;margin-top:3px;padding-top:8px;border-top:1px solid #ffffff30}
+.sj-chart-tooltip-breakdown>span{display:flex;align-items:center;gap:5px;color:#e4f1e7;font-size:10px;white-space:nowrap}
+.sj-chart-tooltip-breakdown i{width:7px;height:7px;flex-shrink:0;border-radius:50%}
+.sj-average-line{stroke:#76a984;stroke-width:1;stroke-dasharray:5 5;pointer-events:none;vector-effect:non-scaling-stroke}
+.sj-average-label{fill:#4c7959;font-size:11px;font-weight:650}
 .sj-chart-foot{display:flex;justify-content:space-between;gap:14px;padding:14px 24px;border-top:1px solid #e7f3f8;font-size:13.5px;color:#759c7b;flex-wrap:wrap}
 .sj-seg{display:flex;background:#eaf6fb;border:1px solid #d7e9f2;border-radius:10px;padding:4px;gap:4px}
 .sj-seg button{display:inline-flex;align-items:center;gap:7px;border-radius:7px;padding:8px 13px;font-size:14px;font-weight:650;color:#4c8055;background:none}
@@ -185,6 +194,67 @@
 
 @media(max-width:1024px){.sj-kpi-row{grid-template-columns:repeat(2,1fr)}.sj-pembaruan-grid{grid-template-columns:1fr}.sj-news-showcase{grid-template-columns:1fr}.sj-hero-visual{align-items:center}}
 @media(max-width:760px){.sj-hero-visual{min-height:0;gap:12px}.sj-hero-stat{width:100%;min-width:0}.sj-ticker-inner{height:50px}.sj-ticker-tag{display:none}.sj-kpi-row{grid-template-columns:1fr 1fr}.sj-panel-head-right{width:100%;justify-content:space-between}.sj-footer .sj-footer-grid{grid-template-columns:1fr 1fr}.sj-notice-header{padding:18px 20px;gap:12px}.sj-notice-content{padding:18px 20px 8px}.sj-notice-dots{padding-inline:20px}.sj-notice-footer{padding:20px}}
-@media(max-width:600px){.sj-notice-backdrop{padding:16px}.sj-notice-dialog{height:min(704px,calc(100dvh - 32px))}.sj-notice-prev,.sj-notice-next{display:none}.sj-notice-header h2{font-size:17px}.sj-notice-text{font-size:14px}}
+@media(max-width:600px){.sj-notice-backdrop{padding:16px}.sj-notice-dialog{height:min(704px,calc(100dvh - 32px))}.sj-notice-prev,.sj-notice-next{display:none}.sj-notice-header h2{font-size:17px}.sj-notice-text{font-size:14px}.sj-notice-countdown{font-size:12px;text-align:center}}
 @media(min-width:1025px){.sj-news-showcase .sj-news-list{justify-content:space-between}}
 @media(max-width:700px){.sj-hero-visual{height:auto;min-height:0;width:100%;margin:6px auto 0}.sj-map-caption{position:static;justify-content:center;display:flex}.sj-news-card.sj-feature .sj-news-image{height:210px}.sj-ticker-lead{padding-right:10px}}
+
+.sj-section-block#sinkronisasi{padding:52px 0 62px;background:#eff6f1}
+.sj-section-top.sj-stack.sj-sync-section-head{width:100%;align-items:center;text-align:center}
+.sj-sync-section-head{gap:10px;margin:0 auto 24px}
+.sj-sync-section-head .sj-eyebrow{margin-bottom:2px;padding:5px 11px;border:1px solid #d5e6d8;border-radius:999px;background:#e4f0e6;color:#28794c;font-size:11px;letter-spacing:.6px}
+.sj-sync-section-head h2{width:100%;color:#183b2c;font-size:clamp(25px,3vw,34px);line-height:1.2;letter-spacing:-.7px}
+.sj-sync-section-head p{max-width:620px;margin-inline:auto;color:#617568;font-size:13px;line-height:1.6}
+.sj-chart-card{overflow:hidden;border-color:#dbe8de;border-radius:14px;background:#fff;box-shadow:0 8px 26px #173a2410}
+.sj-chart-card>.sj-kpi-row{grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:0;border-bottom:1px solid #e8eee9;background:#fff}
+.sj-chart-card .sj-kpi{min-width:0;padding:16px 20px;border:0;border-right:1px solid #e8eee9;border-radius:0;background:transparent;box-shadow:none}
+.sj-chart-card .sj-kpi:last-child{border-right:0}
+.sj-chart-card .sj-kpi:hover{transform:none;box-shadow:none}
+.sj-chart-card .sj-kpi-label{gap:6px;color:#67806e;font-size:11px;letter-spacing:0}
+.sj-chart-card .sj-kpi-label svg{width:12px;height:12px}
+.sj-chart-card .sj-kpi>strong{margin-top:5px;color:#245a39;font-size:21px;letter-spacing:-.45px}
+.sj-chart-head{align-items:flex-start;padding:18px 22px 4px}
+.sj-chart-head h3{color:#234a33;font-size:14px}
+.sj-chart-head h3 svg{color:#28794c}
+.sj-chart-head p{margin-top:4px;color:#708274;font-size:11px}
+.sj-seg{gap:3px;border-color:#dce9df;border-radius:8px;background:#f2f7f3;padding:3px}
+.sj-seg button{padding:7px 10px;color:#55715e;font-size:11px}
+.sj-seg button[aria-pressed="true"]{color:#21633c;box-shadow:0 1px 5px #173a2417}
+.sj-chart-wrap{padding:8px 18px 2px}
+.sj-sync-svg{overflow:visible}
+.sj-sync-svg .sj-grid-line{stroke:#e5eee7;stroke-width:1;stroke-dasharray:3 4}
+.sj-sync-svg .sj-axis-label{fill:#708274;font-size:12px}
+.sj-sync-svg .sj-axis-label.sj-center{font-size:11px}
+.sj-sync-svg .sj-bar{transition:filter .15s,opacity .15s}
+.sj-sync-svg .sj-bar.sj-hover{filter:brightness(.88)}
+.sj-sync-svg rect[role="button"]{cursor:crosshair;outline:none}
+.sj-sync-svg rect[role="button"]:focus-visible{stroke:#174c34;stroke-width:2;stroke-dasharray:3 2}
+.sj-chart-foot{align-items:center;padding:11px 20px;border-color:#e8eee9;color:#68806e;font-size:11px}
+.sj-chart-foot>span:first-child{display:inline-flex;align-items:center;gap:7px}
+@keyframes chartToastIn{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:1024px){
+  .sj-chart-card>.sj-kpi-row{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(max-width:760px){
+  .sj-section-block#sinkronisasi{padding:38px 0 44px}
+  .sj-sync-section-head{margin-bottom:18px}
+  .sj-sync-section-head h2{max-width:520px;font-size:25px}
+  .sj-sync-section-head p{font-size:12px}
+  .sj-chart-card{border-radius:11px}
+  .sj-chart-card>.sj-kpi-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sj-chart-card .sj-kpi{padding:12px 13px;border-right:1px solid #e8eee9;border-bottom:1px solid #e8eee9}
+  .sj-chart-card .sj-kpi:nth-child(2n){border-right:0}
+  .sj-chart-card .sj-kpi:nth-last-child(-n+2){border-bottom:0}
+  .sj-chart-card .sj-kpi-label{font-size:10px}
+  .sj-chart-card .sj-kpi>strong{font-size:18px}
+  .sj-chart-head{gap:12px;padding:16px 14px 4px}
+  .sj-chart-head>div:first-child{max-width:100%}
+  .sj-chart-head p{font-size:10px}
+  .sj-seg{width:100%}
+  .sj-seg button{flex:1;justify-content:center;padding:7px 6px;font-size:10px}
+  .sj-chart-wrap{overflow-x:auto;padding:8px 12px 2px;overscroll-behavior-inline:contain}
+  .sj-sync-svg{min-width:680px}
+  .sj-chart-foot{align-items:flex-start;flex-direction:column;gap:7px;padding:11px 14px;font-size:10px}
+  .sj-chart-tooltip{min-width:160px;padding:9px 10px}
+  .sj-chart-tooltip-total{font-size:15px}
+}

@@ -48,14 +48,15 @@
     <div class="dash-hero mb-3">
         <div class="hero-content d-flex justify-content-between align-items-center flex-wrap gap-3">
             <div>
-                <span class="hero-date">
-                    <i class="bi bi-calendar3 me-1"></i>
-                    {{ now()->translatedFormat('l, j F Y') }}
-                </span>
                 @php
-                    $hourNow = (int) now()->format('H');
+                    $indonesiaNow = now('Asia/Jakarta');
+                    $hourNow = (int) $indonesiaNow->format('H');
                     $greeting = $hourNow < 11 ? 'Selamat Pagi' : ($hourNow < 15 ? 'Selamat Siang' : ($hourNow < 19 ? 'Selamat Sore' : 'Selamat Malam'));
                 @endphp
+                <span class="hero-date">
+                    <i class="bi bi-calendar3 me-1"></i>
+                    {{ $indonesiaNow->locale(app()->getLocale())->translatedFormat('l, j F Y') }}
+                </span>
                 <h3 class="fw-bold mb-1">{{ $greeting }}, {{ auth()->user()->name }}</h3>
                 <p class="mb-0 small text-white">Ringkasan statistik pengunjung website Pemerintah Kota Bekasi.</p>
                 @if (($pendingCount ?? 0) > 0)
@@ -115,7 +116,7 @@
                             <i class='bi bi-people-fill text-danger'></i>
                         </div>
                         <div class="min-w-0">
-                            <div class="stat-label small text-truncate d-block" title="{{ $dateRangeLabel ?? '' }}">Total Pengunjung ({{ $daysDiff ?? 30 }} hari)</div>
+                            <div class="stat-label small d-block" title="{{ $dateRangeLabel ?? '' }}">Total Pengunjung ({{ $daysDiff ?? 30 }} hari)</div>
                             <div class="stat-value fw-bold text-truncate" style="font-size: 1.25rem; line-height: 1.2;">{{ number_format($visitorStats['total_visits']) }}</div>
                             @include('partials.stat-trend', ['growth' => $visitorGrowth, 'daysDiff' => $daysDiff ?? 30])
                         </div>
@@ -137,7 +138,7 @@
                             <i class='bi bi-person-check-fill text-success'></i>
                         </div>
                         <div class="min-w-0">
-                            <div class="stat-label small text-truncate d-block" title="{{ $dateRangeLabel ?? '' }}">Pengunjung Unik ({{ $daysDiff ?? 30 }} hari)</div>
+                            <div class="stat-label small d-block" title="{{ $dateRangeLabel ?? '' }}">Pengunjung Unik ({{ $daysDiff ?? 30 }} hari)</div>
                             <div class="stat-value fw-bold text-truncate" style="font-size: 1.25rem; line-height: 1.2;">{{ number_format($visitorStats['unique_visitors']) }}</div>
                             @include('partials.stat-trend', ['growth' => $uniqueGrowth, 'daysDiff' => $daysDiff ?? 30])
                         </div>
@@ -156,7 +157,7 @@
                             <i class='bi bi-file-text-fill text-info'></i>
                         </div>
                         <div class="min-w-0">
-                            <div class="stat-label small text-truncate d-block" title="{{ $dateRangeLabel ?? '' }}">Total Agenda ({{ $daysDiff ?? 30 }} hari)</div>
+                            <div class="stat-label small d-block" title="{{ $dateRangeLabel ?? '' }}">Total Agenda ({{ $daysDiff ?? 30 }} hari)</div>
                             <div class="stat-value fw-bold text-truncate" style="font-size: 1.25rem; line-height: 1.2;">{{ $totalAgendas }}</div>
                             @include('partials.stat-trend', ['growth' => $agendaGrowth, 'daysDiff' => $daysDiff ?? 30])
                         </div>
@@ -178,7 +179,7 @@
                             <i class='bi bi-building-fill text-primary'></i>
                         </div>
                         <div class="min-w-0">
-                            <div class="stat-label small text-truncate d-block">Total OPD Aktif</div>
+                            <div class="stat-label small d-block">Total OPD Aktif</div>
                             <div class="stat-value fw-bold text-truncate" style="font-size: 1.25rem; line-height: 1.2;">{{ $totalOpdAktif }}</div>
                         </div>
                     </div>
@@ -199,7 +200,7 @@
                             <i class='bi bi-file-earmark-fill text-dark'></i>
                         </div>
                         <div class="min-w-0">
-                            <div class="stat-label small text-truncate d-block">Total Halaman</div>
+                            <div class="stat-label small d-block">Total Halaman</div>
                             <div class="stat-value fw-bold text-truncate" style="font-size: 1.25rem; line-height: 1.2;">{{ $totalPages }}</div>
                         </div>
                     </div>
@@ -220,7 +221,7 @@
                             <i class='bi bi-file-earmark-text-fill text-info'></i>
                         </div>
                         <div class="min-w-0">
-                            <div class="stat-label small text-truncate d-block">Total Dokumen</div>
+                            <div class="stat-label small d-block">Total Dokumen</div>
                             <div class="stat-value fw-bold text-truncate" style="font-size: 1.25rem; line-height: 1.2;">{{ $totalDocuments }}</div>
                         </div>
                     </div>
@@ -238,7 +239,7 @@
                             <i class='bi bi-newspaper text-primary'></i>
                         </div>
                         <div class="min-w-0">
-                            <div class="stat-label small text-truncate d-block">Total Berita</div>
+                            <div class="stat-label small d-block">Total Berita</div>
                             <div class="stat-value fw-bold text-truncate" style="font-size: 1.25rem; line-height: 1.2;">{{ number_format($totalBerita) }}</div>
                         </div>
                     </div>

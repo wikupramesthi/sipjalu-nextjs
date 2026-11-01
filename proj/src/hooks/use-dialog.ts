@@ -13,7 +13,7 @@ export function useDialogBehaviour(open: boolean, closeRef: React.RefObject<HTML
     previousFocus.current = document.activeElement as HTMLElement | null;
     const overflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    closeRef.current?.focus();
+    (closeRef.current ?? modalRef.current)?.focus();
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key !== "Tab" || !modalRef.current) return;

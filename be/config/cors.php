@@ -37,7 +37,7 @@ return [
     ))),
 
     'allowed_origins_patterns' => [],
-    'allowed_headers' => ['Accept', 'Authorization', 'Content-Type', 'X-Requested-With', 'X-XSRF-TOKEN'],
+    'allowed_headers' => ['Accept', 'Authorization', 'Content-Type', 'X-Api-Key', 'X-Requested-With', 'X-XSRF-TOKEN'],
     'exposed_headers' => [],
     'max_age' => 0,
     'supports_credentials' => true,

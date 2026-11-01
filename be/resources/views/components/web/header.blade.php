@@ -10,12 +10,6 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- <div class="argon-search ms-2 d-none d-lg-block">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="bi bi-search"></i></span>
-                        <input type="text" class="form-control" id="sidebar-search" placeholder="Cari menu...">
-                    </div>
-                </div> -->
                 <button type="button" class="btn btn-sm btn-light d-none d-lg-flex align-items-center gap-2 ms-2"
                     data-bs-toggle="modal" data-bs-target="#globalSearchModal" title="Pencarian global (Ctrl+K)">
                     <i class="bi bi-search"></i>
@@ -25,11 +19,13 @@
                 <div class="me-auto"></div>
                 <ul class="navbar-nav ms-auto mb-lg-0 align-items-center">
                     <li class="nav-item d-flex align-items-center me-3">
-                        <div class="theme-toggle d-flex align-items-center" style="height: 2rem;">
-                            <div class="form-check form-switch fs-6 mb-0 d-flex align-items-center">
+                        <div class="theme-toggle" role="group" aria-label="Pengaturan tema">
+                            <i class="bi bi-sun-fill theme-toggle__icon" aria-hidden="true"></i>
+                            <div class="form-check form-switch fs-6 mb-0">
                                 <input class="form-check-input" type="checkbox" id="toggle-dark"
-                                    style="cursor: pointer; margin: 0;" />
+                                    aria-label="Aktifkan mode gelap" />
                             </div>
+                            <i class="bi bi-moon-stars-fill theme-toggle__icon" aria-hidden="true"></i>
                         </div>
                     </li>
                     <li class="nav-item dropdown me-2 me-lg-3">
@@ -137,7 +133,8 @@
                                             ? Auth::user()->avatar
                                             : asset('storage/' . Auth::user()->avatar))
                                         : asset('dist/assets/images/avatar.jpg') }}"
-                                        alt="{{ auth()->user()->name }}" class="img-thumbnail rounded-circle">
+                                        alt="{{ auth()->user()->name }}" class="img-thumbnail rounded-circle"
+                                        onerror="this.onerror=null;this.src='{{ asset('dist/assets/images/avatar.jpg') }}';">
                                 </div>
                             </div>
                             <div class="user-name text-start">

@@ -11,9 +11,9 @@ routes. Architecture: src/views are framework-agnostic client pages shared by th
 (src/app thin per-route shells with generateMetadata + generateStaticParams, dynamicParams
 false) and the Vite SPA artifact (src/main.tsx + src/lib/spa-routes path matcher); both get
 navigation via NavContext (lib/nav.tsx; next/navigation only in src/app/nav-bridge.tsx).
-Security: CSP/host headers in public/_headers + docs/SECURITY.md (connect-src none),
+Security: CSP/host headers in public/_headers + docs/SECURITY.md (FAQ API origin only),
 outbound link allow-list gov domains, csv.ts formula-injection guard, search/NPSN input
-validation. Sample data only in src/data/*.ts; no backend. UI state (filters, accordion,
+validation. Most pages use sample data in src/data/*.ts; FAQ reads active records from the Laravel API. UI state (filters, accordion,
 dialog, CSV export) client-side. Preview serves port 3000; run npm test for artifact+unit.
 When adding routes: src/app + src/config/routes.ts + src/lib/spa-routes.tsx together.
 

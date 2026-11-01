@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Concerns\HandlesTransactions;
+use App\Enums\FaqKategori;
 use App\Models\Faq;
 use App\Services\HtmlSanitizer;
 use App\Models\Kontak;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
 class FaqController extends Controller
@@ -53,7 +55,7 @@ class FaqController extends Controller
         $request->validate([
             'pertanyaan' => 'required|string|max:255',
             'jawaban'    => 'required|string|max:20000',
-            'kategori'   => 'nullable|in:tentang-agenda,jadwal,lokasi,publikasi,lainnya',
+            'kategori'   => ['nullable', Rule::in(FaqKategori::values())],
             'status' => 'required|in:active,inactive',
             'urutan' => 'required|integer|min:1|unique:faqs,urutan',
         ]);
@@ -95,7 +97,7 @@ class FaqController extends Controller
         $request->validate([
             'pertanyaan' => 'required|string|max:255',
             'jawaban'    => 'required|string|max:20000',
-            'kategori'   => 'nullable|in:tentang-agenda,jadwal,lokasi,publikasi,lainnya',
+            'kategori'   => ['nullable', Rule::in(FaqKategori::values())],
             'urutan'     => 'required|integer|min:1',
             'status' => 'required|in:active,inactive',
         ]);

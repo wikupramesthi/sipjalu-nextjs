@@ -18,6 +18,7 @@ import {
 import { slugify } from "../src/lib/format.ts";
 import { schools } from "../src/data/schools.ts";
 import { articles, findArticle } from "../src/data/news.ts";
+import { fetchFaqs, getFaqCategories, normalizeFaqResponse } from "../src/lib/faq-api.ts";
 
 test("csvCell: formula-injection prefixes and quoting", () => {
   assert.ok(csvCell("=HYPERLINK(\"http://evil\")").startsWith("\"'="));
@@ -84,4 +85,60 @@ test("news catalogue: unique slugs, detail lookup works", () => {
   assert.equal(new Set(slugs).size, slugs.length);
   assert.ok(findArticle(slugs[0]));
   assert.equal(findArticle("tidak-ada"), undefined);
+});
+
+test("FAQ API: validates payload, maps categories, and renders answers as text", () => {
+  const faqs = normalizeFaqResponse({
+    status: "success",
+    data: [
+      {
+        id: "faq-1",
+        kategori: "pembayaran-pajak",
+        question: "Bagaimana cara membayar?",
+        answer: "<p>Bayar melalui <strong>kanal resmi</strong>.</p><script>alert(1)</script>",
+      },
+    ],
+  });
+
+  test("FAQ API: caches successful responses and supports explicit refresh", async () => {
+    const originalFetch = globalThis.fetch;
+    const originalBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+    let requests = 0;
+    process.env.NEXT_PUBLIC_API_BASE_URL = "https://api.example.test/api";
+    globalThis.fetch = async (input) => {
+      requests += 1;
+      assert.equal(String(input), "https://api.example.test/api/faqs");
+      return new Response(JSON.stringify({
+        status: "success",
+        data: [{ id: "faq-cache", question: "Pertanyaan?", answer: "Jawaban", kategori: "informasi-umum" }],
+      }), { status: 200, headers: { "Content-Type": "application/json" } });
+    };
+
+    try {
+      const first = await fetchFaqs(new AbortController().signal);
+      const cached = await fetchFaqs(new AbortController().signal);
+      assert.equal(requests, 1);
+      assert.equal(cached, first);
+
+      await fetchFaqs(new AbortController().signal, { refresh: true });
+      assert.equal(requests, 2);
+    } finally {
+      globalThis.fetch = originalFetch;
+      if (originalBaseUrl === undefined) delete process.env.NEXT_PUBLIC_API_BASE_URL;
+      else process.env.NEXT_PUBLIC_API_BASE_URL = originalBaseUrl;
+    }
+  });
+
+  assert.deepEqual(faqs, [{
+    id: "faq-1",
+    category: "Pembayaran Pajak",
+    question: "Bagaimana cara membayar?",
+    answer: "Bayar melalui kanal resmi.",
+  }]);
+  assert.deepEqual(getFaqCategories(faqs), ["Pembayaran Pajak"]);
+  assert.throws(() => normalizeFaqResponse({ status: "error", data: [] }));
+  assert.throws(() => normalizeFaqResponse({
+    status: "success",
+    data: [{ id: "faq-2", question: "Tanpa jawaban", kategori: "informasi-umum" }],
+  }));
 });

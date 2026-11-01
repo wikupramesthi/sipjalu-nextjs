@@ -7,10 +7,25 @@
 @endsection
 
 <style>
-    .faq-check { width: 17px; height: 17px; cursor: pointer; }
-    #checkAllFaq { width: 17px; height: 17px; cursor: pointer; }
-    tr.row-selected > td { background-color: rgba(13, 110, 253, .07) !important; }
-    #bulkBarFaq { border: 1px solid rgba(244, 63, 94, .25); }
+    .faq-check {
+        width: 17px;
+        height: 17px;
+        cursor: pointer;
+    }
+
+    #checkAllFaq {
+        width: 17px;
+        height: 17px;
+        cursor: pointer;
+    }
+
+    tr.row-selected>td {
+        background-color: rgba(13, 110, 253, .07) !important;
+    }
+
+    #bulkBarFaq {
+        border: 1px solid rgba(244, 63, 94, .25);
+    }
 </style>
 
 <!-- Content -->
@@ -18,17 +33,52 @@
 
     {{-- Kartu statistik --}}
     <div class="row mb-3 g-3 ml-stats">
-        <div class="col-6 col-md-4 col-xl"><div class="card shadow-sm h-100"><div class="card-body py-2 px-3"><div class="ml-stat"><div class="ml-stat-icon ic-primary"><i class="bx bx-question-mark"></i></div><div><div class="ml-stat-value">{{ number_format($stats['total']) }}</div><div class="ml-stat-label">Total FAQ</div></div></div></div></div></div>
-        <div class="col-6 col-md-4 col-xl"><div class="card shadow-sm h-100"><div class="card-body py-2 px-3"><div class="ml-stat"><div class="ml-stat-icon ic-success"><i class="bx bx-check-circle"></i></div><div><div class="ml-stat-value">{{ number_format($stats['active']) }}</div><div class="ml-stat-label">Aktif</div></div></div></div></div></div>
-        <div class="col-6 col-md-4 col-xl"><div class="card shadow-sm h-100"><div class="card-body py-2 px-3"><div class="ml-stat"><div class="ml-stat-icon ic-warning"><i class="bx bx-x-circle"></i></div><div><div class="ml-stat-value">{{ number_format($stats['inactive']) }}</div><div class="ml-stat-label">Tidak Aktif</div></div></div></div></div></div>
+        <div class="col-6 col-md-4 col-xl">
+            <div class="card shadow-sm h-100">
+                <div class="card-body py-2 px-3">
+                    <div class="ml-stat">
+                        <div class="ml-stat-icon ic-primary"><i class="bx bx-question-mark"></i></div>
+                        <div>
+                            <div class="ml-stat-value">{{ number_format($stats['total']) }}</div>
+                            <div class="ml-stat-label">Total FAQ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 col-xl">
+            <div class="card shadow-sm h-100">
+                <div class="card-body py-2 px-3">
+                    <div class="ml-stat">
+                        <div class="ml-stat-icon ic-success"><i class="bx bx-check-circle"></i></div>
+                        <div>
+                            <div class="ml-stat-value">{{ number_format($stats['active']) }}</div>
+                            <div class="ml-stat-label">Aktif</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4 col-xl">
+            <div class="card shadow-sm h-100">
+                <div class="card-body py-2 px-3">
+                    <div class="ml-stat">
+                        <div class="ml-stat-icon ic-warning"><i class="bx bx-x-circle"></i></div>
+                        <div>
+                            <div class="ml-stat-value">{{ number_format($stats['inactive']) }}</div>
+                            <div class="ml-stat-label">Tidak Aktif</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="alert alert-info alert-dismissible mb-3 fade show position-relative" role="alert">
         <div class="d-flex">
             <i class="bi-bell-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
             <div class="text-white mt-0">
-                Lihat informasi dan jawaban seputar layanan <strong>Pemerintah Kota Bekasi</strong>.<br>
-                Panduan ini membantu masyarakat memahami layanan serta program yang tersedia.
+                Temukan panduan dan jawaban atas pertanyaan seputar penggunaan <strong>Sistem Informasi Pengendalian Pajak Penerangan Jalan Umum (PJU)</strong>. Halaman FAQ ini membantu admin memahami pengelolaan data, proses pengendalian, monitoring penerimaan, serta fitur-fitur yang tersedia dalam sistem.
             </div>
         </div>
     </div>
@@ -128,13 +178,15 @@
                             </td>
                         </tr>
                         @empty
-                        <tr><td colspan="6" class="text-center py-4 text-muted">Belum ada FAQ.</td></tr>
+                        <tr>
+                            <td colspan="6" class="text-center py-4 text-muted">Belum ada FAQ.</td>
+                        </tr>
                         @endforelse
                     </tbody>
                 </table>
-</div>
             </div>
         </div>
+    </div>
     </div>
 </section>
 @if ($items->hasPages())
@@ -162,7 +214,7 @@
         });
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const checkAll = document.getElementById('checkAllFaq');
         const bulkBar = document.getElementById('bulkBarFaq');
         const bulkCount = document.getElementById('bulkCountFaq');
@@ -179,31 +231,44 @@
             checks.forEach(c => c.closest('tr').classList.toggle('row-selected', c.checked));
         }
 
-        checkAll.addEventListener('change', function () {
-            document.querySelectorAll('.faq-check').forEach(c => { c.checked = this.checked; });
+        checkAll.addEventListener('change', function() {
+            document.querySelectorAll('.faq-check').forEach(c => {
+                c.checked = this.checked;
+            });
             updateBulkBar();
         });
 
-        document.addEventListener('change', function (e) {
+        document.addEventListener('change', function(e) {
             if (e.target.classList.contains('faq-check')) updateBulkBar();
         });
 
-        window.clearFaqSelection = function () {
-            document.querySelectorAll('.faq-check:checked').forEach(c => { c.checked = false; });
+        window.clearFaqSelection = function() {
+            document.querySelectorAll('.faq-check:checked').forEach(c => {
+                c.checked = false;
+            });
             updateBulkBar();
         };
 
-        window.bulkDeleteFaq = function () {
+        window.bulkDeleteFaq = function() {
             const ids = Array.from(document.querySelectorAll('.faq-check:checked')).map(c => c.value);
             if (!ids.length) return;
-            Swal.fire({title:'Hapus ' + ids.length + ' FAQ?', text:'Data terpilih akan dihapus permanen.', icon:'warning', showCancelButton:true, confirmButtonText:'Ya, Hapus!', confirmButtonColor:'#f43f5e'}).then(r => {
+            Swal.fire({
+                title: 'Hapus ' + ids.length + ' FAQ?',
+                text: 'Data terpilih akan dihapus permanen.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus!',
+                confirmButtonColor: '#f43f5e'
+            }).then(r => {
                 if (r.isConfirmed) {
                     const form = document.getElementById('bulkDeleteFaqForm');
                     const box = document.getElementById('bulkIdsFaq');
                     box.innerHTML = '';
                     ids.forEach(id => {
                         const input = document.createElement('input');
-                        input.type = 'hidden'; input.name = 'ids[]'; input.value = id;
+                        input.type = 'hidden';
+                        input.name = 'ids[]';
+                        input.value = id;
                         box.appendChild(input);
                     });
                     form.submit();

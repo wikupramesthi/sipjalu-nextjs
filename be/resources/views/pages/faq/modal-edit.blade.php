@@ -41,11 +41,9 @@
                         <label for="kategori" class="mb-2">Kategori</label>
                         <select name="kategori" id="kategori" class="form-control @error('kategori') is-invalid @enderror">
                             <option value="">-- Tanpa Kategori --</option>
-                            <option value="tentang-agenda" {{ ($item->kategori instanceof \BackedEnum ? $item->kategori->value : $item->kategori) === 'tentang-agenda' ? 'selected' : '' }}>Tentang Agenda</option>
-                            <option value="jadwal" {{ ($item->kategori instanceof \BackedEnum ? $item->kategori->value : $item->kategori) === 'jadwal' ? 'selected' : '' }}>Jadwal</option>
-                            <option value="lokasi" {{ ($item->kategori instanceof \BackedEnum ? $item->kategori->value : $item->kategori) === 'lokasi' ? 'selected' : '' }}>Lokasi</option>
-                            <option value="publikasi" {{ ($item->kategori instanceof \BackedEnum ? $item->kategori->value : $item->kategori) === 'publikasi' ? 'selected' : '' }}>Publikasi</option>
-                            <option value="lainnya" {{ ($item->kategori instanceof \BackedEnum ? $item->kategori->value : $item->kategori) === 'lainnya' ? 'selected' : '' }}>Lainnya</option>
+                            @foreach (\App\Enums\FaqKategori::cases() as $kategori)
+                                <option value="{{ $kategori->value }}" {{ ($item->kategori instanceof \BackedEnum ? $item->kategori->value : $item->kategori) === $kategori->value ? 'selected' : '' }}>{{ $kategori->label() }}</option>
+                            @endforeach
                         </select>
                         @error('kategori')
                             <div class="invalid-feedback">

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { FaqView } from "../../views/FaqView";
 
 export const metadata: Metadata = {
-  title: "FAQ — Pusat Bantuan",
-  description: "Pusat bantuan Dapodik: instalasi, akun, peserta didik, GTK, sinkronisasi, validasi (konten contoh demonstrasi).",
+  title: { absolute: "Pusat Bantuan SIPJALU — Pengendalian Pajak PJU" },
+  description: "Pusat informasi seputar data wajib pajak, pembayaran, potensi, tunggakan, dan pengendalian pajak PJU.",
   alternates: { canonical: "/faq/" },
 };
 

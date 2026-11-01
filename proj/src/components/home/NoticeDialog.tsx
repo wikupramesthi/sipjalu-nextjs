@@ -6,13 +6,15 @@ import { notices } from "../../data/announcements";
 import { useDialogBehaviour } from "../../hooks/use-dialog";
 
 const AUTO_MS = 7000;
+const CLOSE_WAIT_SECONDS = 5;
 
 /**
  * Dialog pengumuman carousel dengan navigasi prev/next, dot, dan rotasi
- * otomatis. Escape dan backdrop tetap bisa menutup (accessibility).
+ * otomatis. Kontrol tutup tersedia setelah hitung mundur lima detik.
  */
 export function NoticeDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [index, setIndex] = useState(0);
+  const [closeWait, setCloseWait] = useState(CLOSE_WAIT_SECONDS);
   const closeRef = useRef<HTMLButtonElement | null>(null);
   const panelRef = useRef<HTMLElement | null>(null);
   useDialogBehaviour(open, closeRef, panelRef);
@@ -20,6 +22,7 @@ export function NoticeDialog({ open, onClose }: { open: boolean; onClose: () => 
   useEffect(() => {
     if (!open) {
       setIndex(0);
+      setCloseWait(CLOSE_WAIT_SECONDS);
       return;
     }
     const rotate = window.setInterval(() => setIndex((i) => (i + 1) % notices.length), AUTO_MS);
@@ -27,27 +30,45 @@ export function NoticeDialog({ open, onClose }: { open: boolean; onClose: () => 
   }, [open]);
 
   useEffect(() => {
+    if (!open || closeWait === 0) return;
+    const timer = window.setInterval(() => {
+      setCloseWait((seconds) => Math.max(0, seconds - 1));
+    }, 1000);
+    return () => window.clearInterval(timer);
+  }, [open, closeWait]);
+
+  useEffect(() => {
+    if (open && closeWait === 0) closeRef.current?.focus();
+  }, [open, closeWait]);
+
+  useEffect(() => {
     if (!open) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape" && closeWait === 0) onClose();
       if (event.key === "ArrowRight") setIndex((i) => (i + 1) % notices.length);
       if (event.key === "ArrowLeft") setIndex((i) => (i - 1 + notices.length) % notices.length);
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+  }, [open, onClose, closeWait]);
 
   if (!open) return null;
   const notice = notices[index];
 
   return (
-    <div className="sj-notice-backdrop" onClick={onClose}>
+    <div
+      className="sj-notice-backdrop"
+      onClick={() => {
+        if (closeWait === 0) onClose();
+      }}
+    >
       <section
         ref={panelRef}
         className="sj-notice-dialog"
         role="dialog"
         aria-modal="true"
         aria-label={notice.title}
+        tabIndex={-1}
         onClick={(event) => event.stopPropagation()}
       >
         <button className="sj-notice-prev" onClick={() => setIndex((i) => (i - 1 + notices.length) % notices.length)} aria-label="Info sebelumnya">
@@ -84,10 +105,16 @@ export function NoticeDialog({ open, onClose }: { open: boolean; onClose: () => 
             ))}
           </div>
           <div className="sj-notice-footer">
-            <button ref={closeRef} className="sj-notice-close-btn" onClick={onClose}>
-              <X size={17} />
-              <span>Tutup</span>
-            </button>
+            {closeWait > 0 ? (
+              <p className="sj-notice-countdown" role="status" aria-live="polite">
+                Silakan tunggu {closeWait} detik untuk menutup pengumuman.
+              </p>
+            ) : (
+              <button ref={closeRef} className="sj-notice-close-btn" onClick={onClose}>
+                <X size={17} />
+                <span>Tutup</span>
+              </button>
+            )}
           </div>
         </div>
         <button className="sj-notice-next" onClick={() => setIndex((i) => (i + 1) % notices.length)} aria-label="Info berikutnya">

@@ -1,8 +1,8 @@
-# Catatan Keamanan — Portal Dapodik (Demo)
+# Catatan Keamanan — Portal SIPJALU
 
 Dokumen ini menjelaskan model ancaman dan mitigasi yang diterapkan agar aplikasi
-layak dijalankan di lingkungan produksi, sesuai karakternya: **portal statis tanpa
-backend**.
+layak dijalankan di lingkungan produksi, termasuk halaman FAQ yang membaca data
+publik dari backend.
 
 ## 1. Model ancaman & mitigasi
 
@@ -13,7 +13,7 @@ backend**.
 | Open redirect via `?next=`/link | Mitigasi | `safeInternalPath()` menolak `//host`, `safeExternalHref()` menolak host di luar allow-list gov |
 | Clickjacking | Mitigasi | `X-Frame-Options: DENY` + CSP `frame-ancestors 'none'` |
 | MIME sniffing | Mitigasi | `X-Content-Type-Options: nosniff` |
-| Eksfiltrasi data klien | Mitigasi struktural | Tidak ada network call; CSP `connect-src 'none'`; kebijakan link keluar allow-list |
+| Eksfiltrasi data klien | Mitigasi | FAQ hanya membaca endpoint API backend; CSP `connect-src` dibatasi ke origin backend dan link keluar tetap memakai allow-list |
 | Pencurian kredensial | Tidak relevan | Tidak ada form login; dialog "Masuk ke Sistem" hanya membuka portal resmi (tanpa input apa pun) |
 | Supply-chain (npm) | Proses | `package-lock.json` di-commit; `npm run audit` (high+) di CI; dependency minimal; `overrides` untuk transitive bermasalah |
 | Information disclosure | Mitigasi | `poweredByHeader:false`, error boundary tanpa stack (demo), metadata robots noindex situs demo |
@@ -31,7 +31,7 @@ Content-Security-Policy:
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' https://fonts.gstatic.com;
   img-src 'self' data:;
-  connect-src 'none';
+  connect-src 'self' https://api.portal.example.go.id;
   form-action 'self';
   base-uri 'none';
   object-src 'none';
@@ -49,7 +49,7 @@ server {
   listen 443 ssl http2;
   server_name portal.example.go.id;
 
-  add_header Content-Security-Policy "default-src 'self'; script-src 'self' https: 'nonce-$cspnonce'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; upgrade-insecure-requests" always;
+  add_header Content-Security-Policy "default-src 'self'; script-src 'self' https: 'nonce-$cspnonce'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.portal.example.go.id; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; upgrade-insecure-requests" always;
   add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
   add_header X-Content-Type-Options "nosniff" always;
   add_header X-Frame-Options "DENY" always;
@@ -63,21 +63,30 @@ server {
 }
 ```
 
-## 3. Data流 & privasi
+## 3. Data flow & privasi
 
-- Seluruh data hardcoded di `src/data/*` dan berlabel contoh; **tidak ada** PII,
-  koneksi database, localStorage/cookies, analitik, atau third-party script.
+- Halaman FAQ membaca data publik aktif dari endpoint backend `/api/faqs`.
+  Konfigurasikan `NEXT_PUBLIC_API_BASE_URL` untuk Next.js dan
+  `VITE_API_BASE_URL` untuk build Vite. Endpoint API memakai HTTPS di produksi.
+- Bila `PUBLIC_API_KEY` di backend diaktifkan, samakan dengan
+  `NEXT_PUBLIC_API_KEY` atau `VITE_PUBLIC_API_KEY`. Kunci ini dibundel ke browser
+  dan hanya berfungsi sebagai penghalang scraper, bukan autentikasi/rahasia.
+- CSP `connect-src` di `public/_headers` memuat origin lokal untuk development.
+  Saat deploy, ganti/tambahkan origin backend produksi yang persis; jangan
+  memakai wildcard.
+- Data lain yang belum terhubung tetap berasal dari `src/data/*`; tidak ada
+  kredensial pengguna atau analitik yang dikirim ke backend.
 - File CSV dibuat di memori browser (`URL.createObjectURL`) lalu blob direkvoke;
   tidak ada unggahan.
-- Karena itu tidak ada risiko kebocoran data pengguna dari aplikasi ini; jika nanti
-  menambahkan API nyata, perlakukan `src/data` sebagai anti-corruption layer (tulis
-  normalizer, jangan render payload mentah).
+- Tidak ada kredensial pengguna atau data formulir yang dikirim ke API. Untuk
+  integrasi API lain, perlakukan `src/data` sebagai anti-corruption layer: tulis
+  normalizer dan jangan render payload mentah.
 
 ## 4. Checklist pra-rilis
 
-- [ ] `npm run typecheck` dan `npm test` hijau (8 unit + 1 kontrak artefak)
+- [ ] `npm run typecheck` dan `npm test` hijau (10 unit + 1 kontrak artefak)
 - [ ] `npm run audit` bersih untuk dependency produksi
-- [ ] Header CSP/di atas aktif di edge/CDN (verifikasi `securityheaders.com`)
+- [ ] Header CSP/di atas aktif di edge/CDN dan `connect-src` memuat origin API yang tepat (verifikasi `securityheaders.com`)
 - [ ] `NEXT_PUBLIC_SITE_URL` menunjuk domain deploy (sitemap/robots canonical)
 - [ ] Aset merek diganti/diizinkan; teks selalu menyandang status "demonstrasi"
 - [ ] Build ulang: `npm run build:next` (atau `npm run build` untuk SPA Page)
