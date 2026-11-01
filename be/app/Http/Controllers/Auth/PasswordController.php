@@ -16,7 +16,7 @@ class PasswordController extends Controller
     /**
      * Update the user's password.
      */
-    public function update(Request $request) : RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
         // $validated = $request->validateWithBag('updatePassword', [
         //     'current_password' => ['required', 'current_password'],
@@ -42,7 +42,7 @@ class PasswordController extends Controller
         ])->save();
 
         // Cabut semua sesi & cookie ingat-di-perangkat lain.
-        Auth::logoutOtherDevices($validated['current_password']);
+        Auth::logoutOtherDevices($validated['password']);
         DB::table('sessions')->where('user_id', $user->getAuthIdentifier())->where('id', '!=', session()->getId())->delete();
 
         return back()->with('success', 'Password has been successfully updated!');

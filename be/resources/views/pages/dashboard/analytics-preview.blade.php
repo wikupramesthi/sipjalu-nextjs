@@ -225,7 +225,6 @@
                             <tr><td>Halaman</td><td class="text-end" style="width:56px;">{{ $totalPages }}</td></tr>
                             <tr><td>Dokumen</td><td class="text-end" style="width:56px;">{{ $totalDocuments }}</td></tr>
                             <tr><td>FAQ aktif</td><td class="text-end" style="width:56px;">{{ $totalFaq }}</td></tr>
-                            <tr><td>Galeri aktif</td><td class="text-end" style="width:56px;">{{ $totalGaleri }}</td></tr>
                             <tr><td>OPD aktif</td><td class="text-end" style="width:56px;">{{ $totalOpdAktif }}</td></tr>
                         </tbody>
                     </table>

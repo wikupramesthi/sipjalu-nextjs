@@ -8,16 +8,30 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('beritas', function (Blueprint $table) {
-            $table->string('video')->nullable()->after('featured_image');
-            $table->boolean('is_urgent')->default(false)->after('is_popular');
-        });
+        if (! Schema::hasColumn('beritas', 'video')) {
+            Schema::table('beritas', function (Blueprint $table) {
+                $table->string('video')->nullable()->after('featured_image');
+            });
+        }
+
+        if (! Schema::hasColumn('beritas', 'is_urgent')) {
+            Schema::table('beritas', function (Blueprint $table) {
+                $table->boolean('is_urgent')->default(false)->after('is_popular');
+            });
+        }
     }
 
     public function down(): void
     {
-        Schema::table('beritas', function (Blueprint $table) {
-            $table->dropColumn(['video', 'is_urgent']);
-        });
+        $columns = array_values(array_filter(
+            ['video', 'is_urgent'],
+            fn (string $column): bool => Schema::hasColumn('beritas', $column)
+        ));
+
+        if ($columns !== []) {
+            Schema::table('beritas', function (Blueprint $table) use ($columns) {
+                $table->dropColumn($columns);
+            });
+        }
     }
 };

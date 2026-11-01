@@ -5,7 +5,6 @@ use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\AgendaController;
 use App\Http\Controllers\Api\DocumentController;
 use App\Http\Controllers\Api\ContactController;
-use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\AduanController;
 use App\Http\Controllers\Api\SearchController;
@@ -13,7 +12,6 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\WebsiteMenuController;
 use App\Http\Controllers\Api\WebsiteIdentityController;
-use App\Http\Controllers\Api\AlbumController;
 use App\Http\Controllers\Api\BeritaLiveController;
 use App\Http\Controllers\Api\CctvController;
 use App\Http\Controllers\Api\CuacaController;
@@ -56,18 +54,11 @@ Route::middleware(['throttle:60,1', 'public.key'])->prefix('services')->group(fu
 Route::middleware(['throttle:60,1', 'public.key'])->group(function () {
     Route::get('/faqs', [FaqController::class, 'index']);
     Route::get('/categories', [AgendaController::class, 'category']);
-    Route::get('/banners', [BannerController::class, 'index']);
     Route::get('/porprov-berita', [PorprovBeritaController::class, 'index']);
     Route::get('/porprov-berita/{idOrSlug}', [PorprovBeritaController::class, 'show']);
 });
 Route::get('/contact/captcha', [ContactController::class, 'captcha'])->middleware(['throttle:30,1', 'public.key']);
 Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:10,1');
-
-// Album galeri (read-only untuk frontend /album)
-Route::middleware(['throttle:60,1', 'public.key'])->prefix('albums')->group(function () {
-    Route::get('/', [AlbumController::class, 'index']);
-    Route::get('/{uuid}', [AlbumController::class, 'show']);
-});
 
 // Agenda — publik hanya published (lihat AgendaController), throttle anti-scrape
 Route::middleware(['throttle:60,1', 'public.key'])->prefix('agenda')->group(function () {

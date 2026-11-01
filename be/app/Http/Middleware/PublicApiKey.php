@@ -33,7 +33,9 @@ class PublicApiKey
 
         if ($given === '' || ! hash_equals($key, $given)) {
             return response()->json([
+                'status' => 'error',
                 'message' => 'Akses API ditolak. Sertakan kunci publik yang valid.',
+                'data' => null,
             ], 403);
         }
 

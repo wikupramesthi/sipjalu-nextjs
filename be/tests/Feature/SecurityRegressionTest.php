@@ -4,10 +4,12 @@ namespace Tests\Feature;
 
 use App\Models\Agenda;
 use App\Models\Category;
+use App\Models\ManagementAccess\Route as ManagedRoute;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
@@ -109,9 +111,16 @@ class SecurityRegressionTest extends TestCase
 
     public function test_default_password_modal_is_only_shown_once_after_successful_login(): void
     {
-        Role::firstOrCreate(['name' => 'user', 'guard_name' => 'web']);
+        $permission = Permission::firstOrCreate(['name' => 'dashboard.index', 'guard_name' => 'web']);
+        $role = Role::firstOrCreate(['name' => 'user', 'guard_name' => 'web']);
+        $role->givePermissionTo($permission);
+        ManagedRoute::firstOrCreate(
+            ['route' => 'dashboard.index'],
+            ['permission_name' => 'dashboard.index', 'status' => true]
+        );
+
         $user = $this->userWithPassword(User::DEFAULT_PASSWORD);
-        $user->assignRole('user');
+        $user->assignRole($role);
         Validator::extend('captcha', fn ($attribute, $value, $parameters, $validator) => true);
 
         $this->post(route('login'), [

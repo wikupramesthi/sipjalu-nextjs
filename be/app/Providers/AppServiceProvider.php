@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Models\Agenda;
 use App\Models\AgendaImage;
-use App\Models\Banner;
 use App\Models\Berita;
 use App\Models\BeritaImage;
 use App\Models\Category;
@@ -82,7 +81,6 @@ class AppServiceProvider extends ServiceProvider
 
             $groups = match (true) {
                 $model instanceof Agenda, $model instanceof AgendaImage => ['agenda', 'categories'],
-                $model instanceof Banner => ['banners'],
                 $model instanceof Berita, $model instanceof BeritaImage => ['berita', 'categories'],
                 $model instanceof Service => ['services'],
                 $model instanceof WebsiteIdentity => ['identity'],

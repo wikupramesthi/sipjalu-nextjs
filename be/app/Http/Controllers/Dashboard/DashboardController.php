@@ -19,7 +19,6 @@ use App\Models\Faq;
 use App\Models\Page;
 use App\Models\Document;
 use App\Models\Aduan;
-use App\Models\Album;
 use App\Services\SystemHealthService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
@@ -92,7 +91,6 @@ class DashboardController extends Controller
             'totalPages' => Page::count(),
             'totalDocuments' => Document::count(),
             'totalOpdAktif' => User::role('opd')->count(),
-            'totalGaleri' => Album::where('status', 'active')->count(),
         ]);
 
         extract($contentStats);
@@ -310,7 +308,6 @@ class DashboardController extends Controller
             'totalPages',
             'totalDocuments',
             'totalOpdAktif',
-            'totalGaleri',
             'agendaTrenLabels',
             'agendaTrenData',
             'agendaPendingData',

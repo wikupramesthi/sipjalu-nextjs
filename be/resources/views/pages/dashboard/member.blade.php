@@ -1,7 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
-
 <div class="container-fluid pb-5">
 
     <!-- Hero -->
@@ -264,5 +260,3 @@
     });
 </script>
 @endif
-
-@endsection

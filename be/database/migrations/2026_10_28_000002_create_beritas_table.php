@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('excerpt', 255)->nullable();
             $table->longText('content');
             $table->string('featured_image')->nullable();
-            $table->string('video')->nullable();
             $table->timestamp('scheduled_at')->nullable();
             $table->unsignedBigInteger('views')->default(0);
             $table->string('tagging')->nullable();
@@ -26,7 +25,6 @@ return new class extends Migration
             $table->enum('search_engine', ['index', 'noindex'])->default('index');
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_popular')->default(false);
-            $table->boolean('is_urgent')->default(false);
             $table->timestamps();
             $table->softDeletes();
 

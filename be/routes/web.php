@@ -13,7 +13,6 @@ use App\Http\Controllers\ManagementAccess\MenuGroupController;
 use App\Http\Controllers\ManagementAccess\PermissionController;
 
 use App\Http\Controllers\Admin\FaqController;
-use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\BeritaController;
@@ -22,7 +21,6 @@ use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\DocumentCategoryController;
 use App\Http\Controllers\Admin\DocumentSubcategoryController;
 use App\Http\Controllers\Admin\PagesController;
-use App\Http\Controllers\Admin\PollController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\AduanController;
 use App\Http\Controllers\Admin\AduanTindakLanjutController;
@@ -142,14 +140,6 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'backend'], function 
     Route::resource('menu.item', MenuItemController::class)->middleware($superAdmin)->only('index', 'store', 'update', 'destroy');
     Route::delete('faq/bulk', [FaqController::class, 'bulkDestroy'])->name('faq.bulkDestroy');
     Route::resource('faq', FaqController::class);
-    Route::get('banner/media', [BannerController::class, 'loadMore'])->name('banner.loadMore');
-    Route::get('banner/foto-picker', [BannerController::class, 'fotoPicker'])->name('banner.fotoPicker');
-    Route::get('banner/album-fotos/{album}', [BannerController::class, 'albumFotos'])->name('banner.albumFotos');
-    Route::get('banner/modal/{tipe}/{uuid}', [BannerController::class, 'modal'])->whereIn('tipe', ['foto', 'video', 'album', 'view-album'])->name('banner.modal');
-    Route::resource('banner', BannerController::class);
-    Route::post('banner/album', [BannerController::class, 'storeAlbum'])->name('banner.storeAlbum');
-    Route::put('banner/album/{album}', [BannerController::class, 'updateAlbum'])->name('banner.updateAlbum');
-    Route::delete('banner/album/{album}', [BannerController::class, 'destroyAlbum'])->name('banner.destroyAlbum');
     Route::resource('categories', CategoryController::class);
     Route::delete('agendas/bulk', [AgendaController::class, 'bulkDestroy'])->name('agendas.bulkDestroy');
     Route::put('agendas/bulk/restore', [AgendaController::class, 'bulkRestore'])->name('agendas.bulkRestore');
@@ -198,7 +188,6 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'backend'], function 
     Route::delete('agendas/{uuid}/force', [AgendaController::class, 'forceDestroy'])->name('agendas.forceDestroy');
     Route::resource('account', AccountController::class);
     Route::get('/get-kelurahan/{kecamatan_id}', [AccountController::class, 'getKelurahan']);
-    Route::resource('poll', PollController::class);
     Route::resource('pages', PagesController::class);
     Route::delete('services/bulk', [ServiceController::class, 'bulkDestroy'])->name('services.bulkDestroy');
     Route::resource('services', ServiceController::class)->except(['show']);

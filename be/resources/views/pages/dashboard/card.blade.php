@@ -1,7 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
-
 <style>
     .berita-dashboard-card-trigger {
         display: block;
@@ -248,27 +244,6 @@
                     </div>
                 </div>
             </button>
-        </div>
-
-        {{-- Galeri --}}
-        <div class="col-6 col-lg-3">
-            @if ($isDashboardAdmin)
-                <a href="{{ route('banner.index') }}" class="text-decoration-none text-reset">
-            @else
-                <div>
-            @endif
-                <div class="card border-secondary shadow-sm h-100 stat-card {{ $isDashboardAdmin ? 'hover-lift' : '' }}">
-                    <div class="card-body d-flex align-items-center gap-3 p-4 p-md-5">
-                        <div class="stats-icon bg-light-secondary rounded-3 p-3 flex-shrink-0" style="width: 40px; height: 40px; font-size: 1.1rem;">
-                            <i class='bi bi-images text-secondary'></i>
-                        </div>
-                        <div class="min-w-0">
-                            <div class="stat-label small text-truncate d-block">Total Galeri</div>
-                            <div class="stat-value fw-bold text-truncate" style="font-size: 1.25rem; line-height: 1.2;">{{ $totalGaleri }}</div>
-                        </div>
-                    </div>
-                </div>
-            @if ($isDashboardAdmin)</a>@else</div>@endif
         </div>
 
     </div>
@@ -902,5 +877,3 @@
     }, 60000);
 </script>
 @endpush
-
-@endsection

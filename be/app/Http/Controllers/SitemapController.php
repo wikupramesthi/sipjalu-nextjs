@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Album;
 use App\Models\Agenda;
 use App\Models\WebsiteIdentity;
 use Illuminate\Http\Response;
@@ -21,8 +20,6 @@ class SitemapController extends Controller
             ['loc' => '/layanan', 'freq' => 'weekly', 'prio' => '0.8'],
             ['loc' => '/visi-misi', 'freq' => 'monthly', 'prio' => '0.8'],
             ['loc' => '/dokumen', 'freq' => 'weekly', 'prio' => '0.7'],
-            ['loc' => '/galeri', 'freq' => 'weekly', 'prio' => '0.7'],
-            ['loc' => '/album', 'freq' => 'weekly', 'prio' => '0.7'],
             ['loc' => '/event', 'freq' => 'weekly', 'prio' => '0.7'],
             ['loc' => '/pengumuman', 'freq' => 'weekly', 'prio' => '0.7'],
             ['loc' => '/informasi-pejabat', 'freq' => 'monthly', 'prio' => '0.6'],
@@ -57,19 +54,6 @@ class SitemapController extends Controller
             }
         } catch (\Throwable $e) {
             // silent
-        }
-
-        // Dynamic: Album galeri
-        try {
-            $albums = Album::where('status', 'active')
-                ->orderByDesc('updated_at')
-                ->limit(200)
-                ->get(['uuid', 'updated_at']);
-            foreach ($albums as $al) {
-                $lastmod = $al->updated_at ? $al->updated_at->toDateString() : $today;
-                $urls[] = $this->urlEntry($base . '/album/' . rawurlencode($al->uuid), $lastmod, 'monthly', '0.5');
-            }
-        } catch (\Throwable $e) {
         }
 
         // Optional: identity updated_at as hint

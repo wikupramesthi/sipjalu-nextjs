@@ -16,7 +16,7 @@ final class FileUploadService
 {
     /** Direktori yang boleh ditulis/hapus via service ini. */
     private const ALLOWED_DIRS = [
-        'avatars', 'banners', 'agendas', 'documents', 'pages', 'identities', 'albums', 'aduan',
+        'avatars', 'agendas', 'documents', 'pages', 'identities', 'aduan',
     ];
 
     public static function isManaged(?string $path): bool

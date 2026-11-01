@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Agenda;
-use App\Models\Album;
 use App\Models\Category;
 use App\Models\Document;
 use App\Models\Faq;
@@ -180,7 +179,6 @@ class AnalyticsReportController extends Controller
             'totalPages' => Page::count(),
             'totalDocuments' => Document::count(),
             'totalOpdAktif' => User::role('opd')->count(),
-            'totalGaleri' => Album::where('status', 'active')->count(),
             'agendaTrenLabels' => $agendaTrenLabels,
             'agendaTrenData' => $agendaTrenData,
             'trenMax' => $trenMax,

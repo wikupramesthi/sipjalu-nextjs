@@ -49,6 +49,7 @@
         href="/dist/assets/compiled/css/auth.css?v={{ file_exists(public_path('dist/assets/compiled/css/auth.css')) ? filemtime(public_path('dist/assets/compiled/css/auth.css')) : '1' }}">
     <link rel="stylesheet"
         href="/css/btn-soft.css?v={{ file_exists(public_path('css/btn-soft.css')) ? filemtime(public_path('css/btn-soft.css')) : '1' }}">
+    @stack('styles')
 
     <meta name="theme-color" content="#273049">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,133 +59,16 @@
 
 </head>
 
-<body>
+<body class="@yield('body-class')">
 
-    <div class="authentication-wrapper authentication-cover auth-2026">
-        <!-- Logo (mobile) -->
-        <a href="#" class="auth-cover-brand auth-cover-brand-top auth-logo d-lg-none">
-            <img src="{{ asset('img/logo.png') }}" class="auth-brand-logo-wrap" alt="Logo Pemerintah Kota Bekasi"
-                decoding="async">
-        </a>
-
+    <div class="authentication-wrapper authentication-cover auth-2026 @yield('auth-page-class')">
         @yield('content')
 
     </div>
 
 
-    <!-- FAB Bantuan -->
-    <button type="button" class="ui-help-fab" id="helpFab" aria-label="Bantuan" aria-expanded="false"
-        aria-controls="helpPopup">
-        <i class="ti ti-lifebuoy" aria-hidden="true"></i>
-    </button>
-    <div class="ui-help-backdrop" id="helpBackdrop" hidden></div>
-
-    <div class="ui-help-popup" id="helpPopup" role="dialog" aria-modal="false" aria-label="Bantuan login" hidden>
-
-        <div class="ui-help-head">
-            <span class="ui-help-head-title">
-                <span>
-                    <i class="ti ti-message-circle-help" aria-hidden="true"></i>
-                    {{ __('login.help_title') }}
-                </span>
-                <small>{{ __('login.help_subtitle') }}</small>
-            </span>
-
-            <button type="button" class="ui-help-close" id="helpClose" aria-label="Tutup">
-                <i class="ti ti-x" aria-hidden="true"></i>
-            </button>
-        </div>
-
-        <div class="ui-help-body">
-
-            <div class="ui-help-item">
-                <span class="ui-help-icon">
-                    <i class="ti ti-login" aria-hidden="true"></i>
-                </span>
-                <div>
-                    <strong>{{ __('login.help_how_to') }}</strong>
-                    <p>
-                        {!! __('login.help_how_to_desc') !!}
-                    </p>
-                </div>
-            </div>
-
-            <div class="ui-help-item">
-                <span class="ui-help-icon">
-                    <i class="ti ti-key" aria-hidden="true"></i>
-                </span>
-                <div>
-                    <strong>{{ __('login.help_forgot_title') }}</strong>
-                    <p>
-                        {!! __('login.help_forgot_desc') !!}
-                    </p>
-                </div>
-            </div>
-
-            <div class="ui-help-item">
-                <span class="ui-help-icon">
-                    <i class="ti ti-headset" aria-hidden="true"></i>
-                </span>
-                <div>
-                    <strong>{{ __('login.help_trouble') }}</strong>
-                    <p>
-                        {{ __('login.help_trouble_desc') }}
-                    </p>
-                </div>
-            </div>
-
-            <div class="ui-help-foot">
-                <i class="ti ti-info-circle" aria-hidden="true"></i>
-                <span>
-                    {{ __('login.help_footer') }}
-                </span>
-            </div>
-
-        </div>
-    </div>
-
     <script>
         (function() {
-            // Popup bantuan
-            var helpFab = document.getElementById('helpFab');
-            var helpPopup = document.getElementById('helpPopup');
-            var helpBackdrop = document.getElementById('helpBackdrop');
-            var helpClose = document.getElementById('helpClose');
-
-            function openHelp() {
-                if (!helpPopup) return;
-                helpPopup.hidden = false;
-                if (helpBackdrop) helpBackdrop.hidden = false;
-                requestAnimationFrame(function() {
-                    helpPopup.classList.add('is-open');
-                    if (helpBackdrop) helpBackdrop.classList.add('is-open');
-                    if (helpFab) helpFab.setAttribute('aria-expanded', 'true');
-                });
-            }
-
-            function closeHelp() {
-                if (!helpPopup) return;
-                helpPopup.classList.remove('is-open');
-                if (helpBackdrop) helpBackdrop.classList.remove('is-open');
-                if (helpFab) helpFab.setAttribute('aria-expanded', 'false');
-                setTimeout(function() {
-                    helpPopup.hidden = true;
-                    if (helpBackdrop) helpBackdrop.hidden = true;
-                }, 220);
-            }
-
-            if (helpFab) {
-                helpFab.addEventListener('click', function() {
-                    var open = !helpPopup.hidden && helpPopup.classList.contains('is-open');
-                    open ? closeHelp() : openHelp();
-                });
-            }
-            if (helpClose) helpClose.addEventListener('click', closeHelp);
-            if (helpBackdrop) helpBackdrop.addEventListener('click', closeHelp);
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') closeHelp();
-            });
-
             var toggle = document.getElementById('togglePassword');
             var pass = document.getElementById('password');
             if (toggle && pass) {
@@ -201,13 +85,6 @@
             var secMasuk = document.getElementById('sec_masuk');
             var secReset = document.getElementById('sec_resetpass');
             var linkBack = document.getElementById('ahaa');
-
-            var showCallback = function() {
-                if (window.matchMedia && window.matchMedia('(max-width: 991.98px)').matches) {
-                    var hero = document.getElementById('mobileHero');
-                    if (hero) hero.classList.remove('d-none');
-                }
-            };
 
             if (linkForgot && secReset) {
                 linkForgot.addEventListener('click', function() {

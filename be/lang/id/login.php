@@ -2,15 +2,21 @@
 
 return [
     // Brand panel
-    'brand_welcome' => 'Selamat Datang di',
-   'brand_portal' => 'Website Resmi Pemerintah Kota Bekasi',
-    'brand_tagline' => 'Sumber informasi resmi mengenai pemerintahan, pelayanan publik, pembangunan, dan berbagai kegiatan Pemerintah Kota Bekasi.',
-    'brand_point_1' => 'Informasi resmi pemerintahan Kota Bekasi',
-    'brand_point_2' => 'Informasi pelayanan publik dan pembangunan daerah',
-    'brand_point_3' => 'Layanan informasi yang mudah diakses dan transparan',
+    'brand_welcome' => 'Dashboard',
+    'brand_portal' => 'Talent And Innovation Hub',
+    'brand_tagline' => 'Platform digital terintegrasi untuk mengelola agenda, informasi kegiatan, dan akses layanan dalam satu portal.',
+    'brand_point_1' => 'Pantau agenda dan kegiatan secara terstruktur',
+    'brand_point_2' => 'Akses informasi kegiatan dalam satu portal',
+    'brand_point_3' => 'Informasi tersaji ringkas dan mudah ditemukan',
+    'brand_point_4' => 'Login dilindungi verifikasi keamanan',
 
     // Form heading
-    'heading' => 'Silahkan masuk untuk melanjutkan.',
+    'heading' => 'Masuk ke Dashboard',
+    'panel_description' => 'Masuk untuk melanjutkan ke dashboard dan mengakses informasi yang tersedia.',
+    'access_note' => 'Gunakan email dan kata sandi akun Anda. Hubungi administrator jika membutuhkan bantuan akses.',
+    'organization' => 'Platform Digital Terintegrasi',
+    'portal_name' => 'Talent And Innovation Hub',
+    'theme_toggle' => 'Ganti tampilan',
     'heading_reset' => 'Reset password akun Anda.',
     'reset_info' => 'Masukkan Email Anda reset akan kami kirim ke email terdaftar.',
 
@@ -37,8 +43,6 @@ return [
     'login_now' => 'Masuk Sekarang',
     'send_to_email' => 'Kirim ke Email Saya',
     'verifying' => 'Memverifikasi...',
-    'or' => 'atau',
-    'google_account' => 'Akun Google',
 
     // Validation (also used in LoginRequest)
     'captcha_required' => 'Kode captcha wajib diisi.',
@@ -51,15 +55,4 @@ return [
     'lang_id' => 'ID',
     'lang_en' => 'EN',
     'lang_switch' => 'Bahasa',
-
-    // Help popup
-    'help_title' => 'Bantuan Login',
-    'help_subtitle' => 'Pusat Bantuan Portal Pemerintah Kota Bekasi',
-    'help_how_to' => 'Cara Masuk',
-    'help_how_to_desc' => 'Masukkan email atau akun yang telah terdaftar beserta password, kemudian klik <b>"Masuk Sekarang"</b> untuk mengakses portal Agenda Pemerintah Kota Bekasi.',
-    'help_forgot_title' => 'Lupa Password',
-    'help_forgot_desc' => 'Jika lupa password, pilih <b>"Lupa Password?"</b> dan ikuti petunjuk pemulihan akun menggunakan email yang telah terdaftar.',
-    'help_trouble' => 'Kendala Akses',
-    'help_trouble_desc' => 'Apabila mengalami kendala saat login atau akun tidak dapat digunakan, silakan hubungi Helpdesk/Administrator Pemerintah Kota Bekasi untuk mendapatkan bantuan.',
-    'help_footer' => 'Pastikan data akun yang digunakan benar dan jangan membagikan password kepada pihak lain.',
 ];

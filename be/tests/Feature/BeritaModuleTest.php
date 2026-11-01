@@ -30,6 +30,18 @@ class BeritaModuleTest extends TestCase
         return $user;
     }
 
+    private function adminWithBeritaApprovalAccess(): User
+    {
+        $permission = Permission::firstOrCreate(['name' => 'agendas.approve', 'guard_name' => 'web']);
+        $role = Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
+        $role->givePermissionTo($permission);
+
+        $admin = User::factory()->create();
+        $admin->assignRole($role);
+
+        return $admin;
+    }
+
     public function test_create_form_has_no_agenda_implementation_section(): void
     {
         $user = $this->userWithBeritaAccess();
@@ -138,8 +150,7 @@ class BeritaModuleTest extends TestCase
     {
         Notification::fake();
         $author = $this->userWithBeritaAccess();
-        $admin = User::factory()->create();
-        $admin->assignRole(Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']));
+        $admin = $this->adminWithBeritaApprovalAccess();
         $superAdmin = User::factory()->create();
         $superAdmin->assignRole(Role::firstOrCreate(['name' => 'super-admin', 'guard_name' => 'web']));
         $category = Category::create([
@@ -162,8 +173,7 @@ class BeritaModuleTest extends TestCase
     public function test_admin_can_approve_pending_berita_and_author_is_notified(): void
     {
         Notification::fake();
-        $admin = User::factory()->create();
-        $admin->assignRole(Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']));
+        $admin = $this->adminWithBeritaApprovalAccess();
         $author = User::factory()->create();
         $category = Category::create([
             'name' => 'Berita Approval',
@@ -190,8 +200,7 @@ class BeritaModuleTest extends TestCase
     public function test_admin_can_return_pending_berita_to_draft_with_reason(): void
     {
         Notification::fake();
-        $admin = User::factory()->create();
-        $admin->assignRole(Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']));
+        $admin = $this->adminWithBeritaApprovalAccess();
         $author = User::factory()->create();
         $category = Category::create([
             'name' => 'Berita Return',
@@ -218,8 +227,7 @@ class BeritaModuleTest extends TestCase
     public function test_admin_can_request_revision_without_changing_pending_status(): void
     {
         Notification::fake();
-        $admin = User::factory()->create();
-        $admin->assignRole(Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']));
+        $admin = $this->adminWithBeritaApprovalAccess();
         $author = User::factory()->create();
         $category = Category::create([
             'name' => 'Berita Revision',

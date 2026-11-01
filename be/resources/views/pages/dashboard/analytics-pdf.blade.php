@@ -279,7 +279,6 @@
         <tr><td>Halaman</td><td class="num">{{ $totalPages }}</td></tr>
         <tr class="zebra"><td>Dokumen</td><td class="num">{{ $totalDocuments }}</td></tr>
         <tr><td>FAQ aktif</td><td class="num">{{ $totalFaq }}</td></tr>
-        <tr class="zebra"><td>Galeri aktif</td><td class="num">{{ $totalGaleri }}</td></tr>
         <tr><td>OPD aktif</td><td class="num">{{ $totalOpdAktif }}</td></tr>
     </tbody>
 </table>
