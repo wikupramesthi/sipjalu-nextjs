@@ -77,6 +77,13 @@
                     var show = pass.type === 'password';
                     pass.type = show ? 'text' : 'password';
                     eye.className = show ? 'ti ti-eye' : 'ti ti-eye-closed';
+                    toggle.setAttribute('aria-pressed', show ? 'true' : 'false');
+                });
+                toggle.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        toggle.click();
+                    }
                 });
             }
 
