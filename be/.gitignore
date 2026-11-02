@@ -1,25 +1,58 @@
-/.phpunit.cache
-/node_modules
-/public/hot
-/storage/*.key
-/storage/*
-/storage/framework/views/
+# Dependencies
 /vendor
+/node_modules
+
+# Build artifacts
+/public/build
+/public/hot
+/public/storage
+/public/storage-backup
+/public/storage_backup
+
+# Environment & secrets
 .env
-.env.backup
-.env.production
-.phpactor.json
+.env.*
+!.env.example
+
+# Storage (keep .gitignore placeholders)
+/storage/*.key
+/storage/app/public/*
+!/storage/app/public/.gitignore
+/storage/framework/cache/data/*
+!/storage/framework/cache/data/.gitignore
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+/storage/framework/testing/*
+!/storage/framework/testing/.gitignore
+/storage/framework/views/*
+/storage/logs/*
+!/storage/logs/.gitignore
+/storage/pail
+
+# Database dumps
+/*.sql
+/*.sql.gz
+*.sqlite
+
+# Test / cache
+/.phpunit.cache
 .phpunit.result.cache
+
+# Tooling & local config
+.phpactor.json
 Homestead.json
 Homestead.yaml
 auth.json
+composer.phar
 npm-debug.log
 yarn-error.log
+pnpm-debug.log
+
+# Editor & OS files
 /.fleet
 /.idea
 /.vscode
-
-/public/build/
-/public/storage
-/public/storage-backup
-/public/storage_backup/
+/.zed
+.DS_Store
+Thumbs.db
+desktop.ini
